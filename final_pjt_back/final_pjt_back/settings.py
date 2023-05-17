@@ -176,4 +176,5 @@ ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_NICKNAME_REQUIRED = True
 
+# email WinError 오류 해결
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
