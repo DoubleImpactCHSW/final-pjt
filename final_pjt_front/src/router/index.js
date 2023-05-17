@@ -5,7 +5,8 @@ import ProductView from '../views/ProductView.vue'
 import ExchangeView from '../views/ExchangeView.vue'
 import MypageView from '../views/MypageView.vue'
 import BankMapView from '../views/BankMapView.vue'
-import AccountView from '../views/AccountView.vue'
+import SignUpView from '../views/SignUpView.vue'
+import LogInView from '../views/LogInView.vue'
 import ArticleView from '../views/ArticleView.vue'
 import RecommendView from '../views/RecommendView.vue'
 
@@ -16,6 +17,15 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignUpView
+  },{
+    path: '/login',
+    name: 'login',
+    component: LogInView
   },
   {
     path: '/product',
@@ -36,11 +46,6 @@ const routes = [
     path: '/bankmap',
     name: 'bankmap',
     component: BankMapView
-  },
-  {
-    path: '/account',
-    name: 'account',
-    component: AccountView
   },
   {
     path: '/article',
