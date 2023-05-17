@@ -1,10 +1,14 @@
 from django.db import models
-
 from django.contrib.auth.models import AbstractUser
+
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=50)
+    financial_products = models.TextField(blank=True, null=True)
     
+# class Product(models.Model):
+#     name = models.CharField(max_length=50)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='financial_products')
 # 상속 받아서 구현해보기
 from allauth.account.adapter import DefaultAccountAdapter
 
@@ -25,12 +29,14 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         # nickname 필드
         nickname = data.get("nickname")
 
+
         user_email(user, email)
         user_username(user, username)
         if first_name:
             user_field(user, "first_name", first_name)
         if last_name:
             user_field(user, "last_name", last_name)
+
         # 닉네임 필드 추가
         if nickname:
             user_field(user, "nickname", nickname)
