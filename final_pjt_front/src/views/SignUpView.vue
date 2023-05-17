@@ -2,19 +2,22 @@
     <div>
         <h1>회원가입 View</h1>
         <form @submit.prevent="signUp">
-        <label for="username">id : </label>
+        <label for="username">id</label>
         <input type="text" id="username" v-model="username"><br>
 
-        <label for="nickname">nickname : </label>
-        <input type="text" id="nickname" v-model="nickname"><br>
+        <label for="email">email</label>
+        <input type="text" id="email" v-model="email"><br>
 
-        <label for="password1"> password : </label>
+        <label for="password1"> password</label>
         <input type="password" id="password1" v-model="password1"><br>
 
-        <label for="password2"> password confirmation : </label>
-        <input type="password" id="password2" v-model="password2">
+        <label for="password2"> password confirmation</label>
+        <input type="password" id="password2" v-model="password2"><br>
         
-        <input type="submit" value="SignUp">
+        <label for="nickname">nickname</label>
+        <input type="text" id="nickname" v-model="nickname"><br>
+
+        <b-button type="submit" variant="success"> Sign Up </b-button>
         </form>
     </div>
 </template>
