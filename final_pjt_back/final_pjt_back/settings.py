@@ -169,8 +169,8 @@ REST_FRAMEWORK = {
     ],
     # 기본적으로 사용할 권한 및 허가
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.AllowAny',
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.IsAuthenticated',
     ]
 }
 
