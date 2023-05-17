@@ -2,17 +2,36 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
+      <router-link to="/signup">signup</router-link> |
+      <router-link to="/login">login</router-link> |
+      <b-button v-if="isLogin" @click="logout" variant="danger">logout</b-button>
+      <hr>
       <router-link to="/product">product</router-link> |
       <router-link to="/exchange">exchange</router-link> |
       <router-link to="/mypage">mypage</router-link> |
       <router-link to="/bankmap">bankmap</router-link> |
-      <router-link to="/account">account</router-link> |
       <router-link to="/article">article</router-link> |
       <router-link to="/recommend">recommend</router-link> |
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  }
+}
+</script>
 
 <style>
 #app {
