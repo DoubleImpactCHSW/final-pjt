@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>회원 View</h1>
+        <h2>HiHi</h2>
     </div>
 </template>
 
