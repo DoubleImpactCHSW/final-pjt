@@ -1,6 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import ProductView from '../views/ProductView.vue'
+import ExchangeView from '../views/ExchangeView.vue'
+import MypageView from '../views/MypageView.vue'
+import BankMapView from '../views/BankMapView.vue'
+import AccountView from '../views/AccountView.vue'
+import ArticleView from '../views/ArticleView.vue'
+import RecommendView from '../views/RecommendView.vue'
 
 Vue.use(VueRouter)
 
@@ -11,13 +18,40 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/product',
+    name: 'product',
+    component: ProductView
+  },
+  {
+    path: '/exchange',
+    name: 'exchange',
+    component: ExchangeView
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: MypageView
+  },
+  {
+    path: '/bankmap',
+    name: 'bankmap',
+    component: BankMapView
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: AccountView
+  },
+  {
+    path: '/article',
+    name: 'article',
+    component: ArticleView
+  },
+  {
+    path: '/recommend',
+    name: 'recommend',
+    component: RecommendView
+  },
 ]
 
 const router = new VueRouter({
