@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>커뮤니티(게시판)</h1>
+        <p>token: {{ token }}</p>
     </div>
 </template>
 
@@ -10,12 +11,13 @@ export default {
 
     data() {
         return {
-            
         };
     },
 
-    mounted() {
-        
+    computed: {
+        token() {
+            return this.$store.state.token
+        }
     },
 
     methods: {

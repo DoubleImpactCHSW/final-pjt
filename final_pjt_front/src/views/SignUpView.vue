@@ -29,9 +29,10 @@ export default {
     data() {
         return {
             username: null,
-            nickname: null,
+            email: null,
             password1: null,
             password2: null,
+            nickname: null,
         };
     },
 
@@ -43,12 +44,13 @@ export default {
         signUp() {
             // console.log('signup')
             const username = this.username
-            const nickname = this.nickname
+            const email = this.email
             const password1 = this.password1
             const password2 = this.password2
+            const nickname = this.nickname
 
             const payload = {
-                username, nickname, password1, password2
+                username, email, password1, password2, nickname
             }
 
             this.$store.dispatch('signUp', payload)

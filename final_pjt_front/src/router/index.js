@@ -10,6 +10,8 @@ import LogInView from '../views/LogInView.vue'
 import ArticleView from '../views/ArticleView.vue'
 import RecommendView from '../views/RecommendView.vue'
 
+import store from '../store'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -25,7 +27,16 @@ const routes = [
   },{
     path: '/login',
     name: 'login',
-    component: LogInView
+    component: LogInView,
+    beforeEnter: (to, from, next) => {
+      /* must call `next` */
+      if (store.getters.isLogin) {
+        alert('이미 로그인되었습니다.')
+        next(false)
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/product',
@@ -63,6 +74,21 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+
+router.beforeEach((to, from, next) => {
+  if (!store.getters.isLogin) {
+    alert(to.name)
+    if (to.name === 'login') {
+      next()
+    } else {
+      alert('로그인을 먼저 진행해야합니다!')
+      router.push({ name: 'login' })
+    }
+  } else {
+    next();
+  }
 })
 
 export default router
