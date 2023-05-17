@@ -62,6 +62,28 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+REST_AUTH = { # 회원가입시 토큰 발급
+    'SESSION_LOGIN': False,
+}
+
+SITE_ID = 1
+# 하나의 컨텐츠로 여러 개의 도메인에 등록하고 싶을 때 사용
+
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated', # 디폴트로 다 막기
+        # 'rest_framework.permissions.AllowAny',      # 디폴트로 다 허용
+    ],
+}
+
+
 ROOT_URLCONF = 'final_pjt_back.urls'
 
 TEMPLATES = [
@@ -152,6 +174,17 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+# allauth의 default adapter 설정
+ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
+
+# 필드 꼭 입력하게 설정
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_NICKNAME_REQUIRED = True
+
+# email WinError 오류 해결
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 AUTH_USER_MODEL = 'accounts.User'
 
 # dj_rest_auth 의 설정
@@ -159,9 +192,6 @@ REST_AUTH = {
     'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
 }
 
-# allauth 의 default adapter 설정
-ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 
-SITE_ID = 1
 
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+

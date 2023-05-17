@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=50)
-
+    
 # 상속 받아서 구현해보기
 from allauth.account.adapter import DefaultAccountAdapter
 
