@@ -11,7 +11,7 @@
         <router-link to="/exchange">exchange</router-link> |
         <router-link to="/mypage">mypage</router-link> |
         <router-link to="/bankmap">bankmap</router-link> |
-        <router-link to="/article">article</router-link> |
+        <router-link to="/article">community</router-link> |
         <router-link to="/recommend">recommend</router-link> |
       </div>
     </nav>

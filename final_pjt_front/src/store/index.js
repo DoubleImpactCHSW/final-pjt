@@ -16,6 +16,11 @@ export default new Vuex.Store({
   state: {
     token: null,
     signUpError: null,
+    // communityMode는 community에 띄울 컴포넌트 결정
+    // 'all' : 게시글 전체 조회
+    // 'post' : ArticleForm
+    // 'detail' : 게시글 상세 조회
+    communityMode: 'all',
   },
   getters: {
     isLogin(state) {
@@ -30,7 +35,10 @@ export default new Vuex.Store({
     REMOVE_TOKEN(state) {
       state.token = null
       router.push({ name: 'login' })
-    }
+    },
+    CHANGE_COMMUNITY_MODE(state, payload) {
+      state.communityMode = payload
+    },
   },
   actions: {
     signUp(context, payload) {
@@ -86,6 +94,9 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
+    },
+    changeCommunityMode(context, payload) {
+      context.commit('CHANGE_COMMUNITY_MODE', payload)
     }
   },
   modules: {
