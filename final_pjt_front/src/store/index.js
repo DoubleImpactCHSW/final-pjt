@@ -21,6 +21,7 @@ export default new Vuex.Store({
     // 'post' : ArticleForm
     // 'detail' : 게시글 상세 조회
     communityMode: 'all',
+    articles: [],
   },
   getters: {
     isLogin(state) {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     },
     CHANGE_COMMUNITY_MODE(state, payload) {
       state.communityMode = payload
+    },
+    GET_ARTICLES(state, data) {
+      state.articles = [...data]
     },
   },
   actions: {
@@ -97,6 +101,19 @@ export default new Vuex.Store({
     },
     changeCommunityMode(context, payload) {
       context.commit('CHANGE_COMMUNITY_MODE', payload)
+    },
+    getArticles(context) {
+      axios.get('http://127.0.0.1:8000/articles/', {
+            headers: {
+                Authorization: `Token ${context.state.token}`
+            }
+        })
+        .then((res) => {
+            context.commit('GET_ARTICLES', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   modules: {

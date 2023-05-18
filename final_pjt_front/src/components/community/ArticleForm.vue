@@ -43,11 +43,13 @@ export default {
             })
             .then(res => {
                 console.log(res)
+                this.$store.dispatch('getArticles') // 리렌더링용
                 this.$store.dispatch('changeCommunityMode', 'all')
             })
             .catch(err => {
                 console.log(err)
             })
+
         }
     },
 };

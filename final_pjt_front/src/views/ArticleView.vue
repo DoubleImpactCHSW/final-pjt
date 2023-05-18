@@ -5,7 +5,7 @@
         <hr>
         <b-button v-if="mode !== 'post'" @click="goPost" variant="primary">후기 작성하기</b-button>
         <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
-            <ArticleItem v-for="article in articles" :key="article.id" :title="article.title" :content="article.content" />
+            <ArticleItem v-for="article in articles" :key="article.id" :id="article.id" :title="article.title" :content="article.content" />
         </div>
         <div v-if="mode === 'post'">
             <ArticleForm />
@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 import ArticleItem from '@/components/community/ArticleItem.vue'
 import ArticleForm from '@/components/community/ArticleForm.vue'
 
@@ -29,7 +27,6 @@ export default {
 
     data() {
         return {
-            articles: [],
         };
     },
 
@@ -39,18 +36,14 @@ export default {
         },
         mode() {
             return this.$store.state.communityMode
-        }
+        },
+        articles() {
+            return this.$store.state.articles
+        },
     },
 
     created() {
-        axios.get('http://127.0.0.1:8000/articles/', {
-            headers: {
-                Authorization: `Token ${this.$store.state.token}`
-            }
-        })
-        .then((res) => {
-            this.articles = res.data
-        })
+        this.$store.dispatch('getArticles')
     },
 
     methods: {
