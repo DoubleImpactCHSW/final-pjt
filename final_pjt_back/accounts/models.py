@@ -1,14 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from products.models import DepositProducts, SavingProducts
 
 class User(AbstractUser):
     nickname = models.CharField(max_length=50)
-    financial_products = models.TextField(blank=True, null=True)
+    financial_products = models.CharField(max_length=50,blank=True, null=True)
+   
+
+# class RegisteredProduct(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registered_products')
     
-# class Product(models.Model):
-#     name = models.CharField(max_length=50)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='financial_products')
+
+
 # 상속 받아서 구현해보기
 from allauth.account.adapter import DefaultAccountAdapter
 
