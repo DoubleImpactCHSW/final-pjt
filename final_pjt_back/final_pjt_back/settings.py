@@ -34,6 +34,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 INSTALLED_APPS = [
     'accounts',
     'articles',
+    'products',
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -196,6 +197,22 @@ REST_AUTH = {
     'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
 }
 
+from pathlib import Path
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+import os
+import environ
+
+# 환경변수를 불러올 수 있는 상태로 설정
+env = environ.Env(DEBUG=(bool, True))
+
+# 읽어올 환경 변수 파일을 지정
+environ.Env.read_env(
+  env_file = os.path.join(BASE_DIR, '.env')
+)
+
+# 설정한 변수를 읽어옴
+API_KEY = env('API_KEY')
 
