@@ -1,6 +1,6 @@
 <template>
     <div class="item p-3 m-3" rounded>
-        <p>{{ title }}</p>
+        <p @click="goDetail">{{ title }}</p>
         <b-button @click="deleteArticle" variant="danger">삭제</b-button>
     </div>
 </template>
@@ -38,7 +38,20 @@ export default {
             .catch((err) => [
                 console.log(err)
             ])
-        }
+        },
+        goDetail() {
+            axios.get(`http://127.0.0.1:8000/articles/${this.articleId}`, {
+                headers: {
+                    Authorization: `Token ${this.$store.state.token}`
+                }
+            })
+            .then((res) => {
+                console.log(res)
+                this.$store.dispatch('getArticleDetail', res.data)
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
     },
 };
 </script>

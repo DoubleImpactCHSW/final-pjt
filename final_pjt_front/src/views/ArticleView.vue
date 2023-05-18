@@ -10,12 +10,16 @@
         <div v-if="mode === 'post'">
             <ArticleForm />
         </div>
+        <div v-if="mode === 'detail'">
+            <ArticleDetail />
+        </div>
     </div>
 </template>
 
 <script>
 import ArticleItem from '@/components/community/ArticleItem.vue'
 import ArticleForm from '@/components/community/ArticleForm.vue'
+import ArticleDetail from '@/components/community/ArticleDetail.vue'
 
 export default {
     name: 'ArticleView',
@@ -23,6 +27,7 @@ export default {
     components: {
         ArticleItem,
         ArticleForm,
+        ArticleDetail,
     },
 
     data() {

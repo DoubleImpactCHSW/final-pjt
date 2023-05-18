@@ -22,12 +22,16 @@ export default new Vuex.Store({
     // 'detail' : 게시글 상세 조회
     communityMode: 'all',
     articles: [],
+    articleDetail: {},
+    commentsList: [],
   },
+
   getters: {
     isLogin(state) {
       return !!state.token
     }
   },
+
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
@@ -41,9 +45,17 @@ export default new Vuex.Store({
       state.communityMode = payload
     },
     GET_ARTICLES(state, data) {
-      state.articles = [...data]
+      state.articles = data
     },
+    GET_ARTICLE_DETAIL(state, detail) {
+      state.articleDetail = detail
+      state.communityMode = 'detail'
+    },
+    GET_COMMENTS(state, comments) {
+      state.commentsList = comments
+    }
   },
+
   actions: {
     signUp(context, payload) {
       const username = payload.username
@@ -103,7 +115,7 @@ export default new Vuex.Store({
       context.commit('CHANGE_COMMUNITY_MODE', payload)
     },
     getArticles(context) {
-      axios.get('http://127.0.0.1:8000/articles/', {
+      axios.get(`${API_URL}/articles/`, {
             headers: {
                 Authorization: `Token ${context.state.token}`
             }
@@ -112,10 +124,23 @@ export default new Vuex.Store({
             context.commit('GET_ARTICLES', res.data)
         })
         .catch((err) => {
-          console.log(err)
+            console.log(err)
         })
+    },
+    getArticleDetail(context, payload) {
+      context.commit('GET_ARTICLE_DETAIL', payload)
+    },
+    getComments(context) {
+      axios.get(`${API_URL}/articles/comments/`, {
+          headers: {
+              Authorization: `Token ${context.state.token}`
+          }
+      }).then((res) => {
+          context.commit('GET_COMMENTS', res.data)
+      })
     }
   },
+
   modules: {
   }
 })
