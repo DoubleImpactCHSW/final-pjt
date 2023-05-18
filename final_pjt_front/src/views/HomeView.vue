@@ -12,7 +12,10 @@ export default {
   components: {
   },
   created() {
-    
+    if (!this.$store.getters.isLogin) {
+      alert('로그인 해주세요!')
+      this.$router.push({ name: 'login' })
+    }
   }
 }
 </script>

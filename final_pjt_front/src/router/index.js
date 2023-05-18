@@ -77,18 +77,17 @@ const router = new VueRouter({
 })
 
 
-router.beforeEach((to, from, next) => {
-  if (!store.getters.isLogin) {
-    alert(to.name)
-    if (to.name === 'login') {
-      next()
-    } else {
-      alert('로그인을 먼저 진행해야합니다!')
-      router.push({ name: 'login' })
-    }
-  } else {
-    next();
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (!store.getters.isLogin) {
+//     if (to.name === 'login') {
+//       next()
+//     } else {
+//       alert('로그인을 먼저 진행해야합니다!')
+//       router.push({ name: 'login' })
+//     }
+//   } else {
+//     next();
+//   }
+// })
 
 export default router

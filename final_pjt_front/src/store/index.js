@@ -15,6 +15,7 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
+    signUpError: null,
   },
   getters: {
     isLogin(state) {
@@ -47,8 +48,11 @@ export default new Vuex.Store({
         }
       }).then((res) => {
         console.log(res)
-        context.commit('SAVE_TOEKN', res.data.key)
+        context.state.signUpError = null
+        context.commit('SAVE_TOKEN', res.data.key)
+        alert('가입을 축하합니다 ><')
       }).catch((err) => {
+        context.state.signUpError = err.response.data
         console.log(err)
       })
     },

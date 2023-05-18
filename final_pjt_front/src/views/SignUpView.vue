@@ -19,6 +19,14 @@
 
         <b-button type="submit" variant="success"> Sign Up </b-button>
         </form>
+        <div>
+            <p v-if="inputNull" class="font-weight-bold text-danger">모든 항목은 필수 입력입니다.</p>
+        </div>
+        <div>
+                <p v-for="(value, key) in errorData" :key="key" class="font-weight-bold text-danger">
+                    {{ value[0] }}
+                </p>
+        </div>
     </div>
 </template>
 
@@ -28,16 +36,21 @@ export default {
 
     data() {
         return {
-            username: null,
-            email: null,
-            password1: null,
-            password2: null,
-            nickname: null,
+            username: '',
+            email: '',
+            password1: '',
+            password2: '',
+            nickname: '',
         };
     },
 
-    mounted() {
-        
+    computed: {
+        inputNull() {
+            return !(this.username && this.email && this.password1 && this.password2 && this.nickname)
+        },
+        errorData() {
+            return this.$store.state.signUpError
+        }
     },
 
     methods: {

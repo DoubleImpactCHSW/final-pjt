@@ -6,12 +6,14 @@
       <router-link to="/login">login</router-link> |
       <b-button v-if="isLogin" @click="logout" variant="danger">logout</b-button>
       <hr>
-      <router-link to="/product">product</router-link> |
-      <router-link to="/exchange">exchange</router-link> |
-      <router-link to="/mypage">mypage</router-link> |
-      <router-link to="/bankmap">bankmap</router-link> |
-      <router-link to="/article">article</router-link> |
-      <router-link to="/recommend">recommend</router-link> |
+      <div v-if="isLogin">
+        <router-link to="/product">product</router-link> |
+        <router-link to="/exchange">exchange</router-link> |
+        <router-link to="/mypage">mypage</router-link> |
+        <router-link to="/bankmap">bankmap</router-link> |
+        <router-link to="/article">article</router-link> |
+        <router-link to="/recommend">recommend</router-link> |
+      </div>
     </nav>
     <router-view/>
   </div>
