@@ -1,7 +1,7 @@
 <template>
   <div>
     <hr />
-    <DetailContent :title="title" :content="content" :created-at="created_at" />
+    <DetailContent :writer="writer" :title="title" :content="content" :created-at="created_at" />
     <hr />
     <p>댓글 수: {{ comment_count }}</p>
     <CommentBox
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       id: this.$store.state.articleDetail.id,
+      writer: this.$store.state.articleDetail.username,
       title: this.$store.state.articleDetail.title,
       content: this.$store.state.articleDetail.content,
       created_at: this.$store.state.articleDetail.created_at,

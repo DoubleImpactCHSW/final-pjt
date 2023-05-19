@@ -45,18 +45,7 @@ export default {
         .catch((err) => [console.log(err)]);
     },
     goDetail() {
-      axios
-        .get(`http://127.0.0.1:8000/articles/${this.articleId}`, {
-          headers: {
-            Authorization: `Token ${this.$store.state.token}`,
-          },
-        })
-        .then((res) => {
-          this.$store.dispatch('getArticleDetail', res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.$store.dispatch('getArticleDetail', this.articleId);
     },
   },
 };

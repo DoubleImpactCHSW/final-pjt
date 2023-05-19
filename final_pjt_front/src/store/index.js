@@ -18,6 +18,7 @@ export default new Vuex.Store({
     // 'all' : 게시글 전체 조회
     // 'post' : ArticleForm
     // 'detail' : 게시글 상세 조회
+    // 'edit' : 게시글 수정
     communityMode: 'all',
     articles: [],
     articleDetail: {},
@@ -144,8 +145,19 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    getArticleDetail(context, payload) {
-      context.commit('GET_ARTICLE_DETAIL', payload);
+    getArticleDetail(context, articleId) {
+      axios
+        .get(`${API_URL}/articles/${articleId}/`, {
+          headers: {
+            Authorization: `Token ${context.state.token}`,
+          },
+        })
+        .then((res) => {
+          context.commit('GET_ARTICLE_DETAIL', res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     getComments(context, articleId) {
       axios
