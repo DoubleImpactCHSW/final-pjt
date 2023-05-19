@@ -8,6 +8,3 @@ from rest_framework.decorators import api_view
 def test(request):
     return JsonResponse({ 'message': 'okay' })
 
-@api_view(['GET'])
-def get_user_id(request):
-    return JsonResponse({'user_id' : request.user.id})
