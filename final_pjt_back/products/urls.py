@@ -17,4 +17,6 @@ urlpatterns = [
     path('saving-product-detail/<str:fin_prdt_cd>/', views.saving_product_detail),
     # 가입 상품 목록에 추가
     path('add/<int:user_id>/<str:fin_prdt_cd>/', views.registered_product),
+    # 금리 바꾸기
+    path('update-interest-rate/<int:option_id>/', views.update_interest_rate),
 ]
