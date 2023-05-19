@@ -1,7 +1,8 @@
 <template>
   <div class="item p-3 m-3" rounded>
+    <p>작성자 {{ writer }}</p>
     <p @click="goDetail">{{ title }}</p>
-    <b-button @click="deleteArticle" variant="danger">삭제</b-button>
+    <b-button v-if="isMine" @click="deleteArticle" variant="danger">삭제</b-button>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ export default {
 
   props: {
     id: Number,
+    writer: String,
     title: String,
   },
 
@@ -20,6 +22,12 @@ export default {
     return {
       articleId: this.id,
     };
+  },
+
+  computed: {
+    isMine() {
+      return this.writer == this.$store.state.username
+    }
   },
 
   methods: {
@@ -37,18 +45,7 @@ export default {
         .catch((err) => [console.log(err)]);
     },
     goDetail() {
-      axios
-        .get(`http://127.0.0.1:8000/articles/${this.articleId}`, {
-          headers: {
-            Authorization: `Token ${this.$store.state.token}`,
-          },
-        })
-        .then((res) => {
-          this.$store.dispatch('getArticleDetail', res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.$store.dispatch('getArticleDetail', this.articleId);
     },
   },
 };

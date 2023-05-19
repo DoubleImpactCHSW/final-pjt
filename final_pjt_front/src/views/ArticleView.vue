@@ -11,6 +11,7 @@
         v-for="article in articles"
         :key="article.id"
         :id="article.id"
+        :writer="article.username"
         :title="article.title"
         :content="article.content"
       />
@@ -21,6 +22,9 @@
     <div v-if="mode === 'detail'">
       <ArticleDetail />
     </div>
+    <div v-if="mode === 'edit'">
+      <ArticleEditForm />
+    </div>
   </div>
 </template>
 
@@ -28,6 +32,7 @@
 import ArticleItem from '@/components/community/ArticleItem.vue';
 import ArticleForm from '@/components/community/ArticleForm.vue';
 import ArticleDetail from '@/components/community/ArticleDetail.vue';
+import ArticleEditForm from '@/components/community/ArticleEditForm.vue';
 
 export default {
   name: 'ArticleView',
@@ -36,6 +41,7 @@ export default {
     ArticleItem,
     ArticleForm,
     ArticleDetail,
+    ArticleEditForm,
   },
 
   data() {

@@ -18,6 +18,7 @@ export default new Vuex.Store({
     // 'all' : 게시글 전체 조회
     // 'post' : ArticleForm
     // 'detail' : 게시글 상세 조회
+    // 'edit' : 게시글 수정
     communityMode: 'all',
     articles: [],
     articleDetail: {},
@@ -137,22 +138,40 @@ export default new Vuex.Store({
           context.commit('GET_ARTICLES', res.data);
         })
         .catch((err) => {
+          if (err.response && err.response.status === 404) {
+            // 404 에러인 경우 아무 일도 하지 않고 종료
+            return;
+          }
           console.log(err);
         });
     },
-    getArticleDetail(context, payload) {
-      context.commit('GET_ARTICLE_DETAIL', payload);
-    },
-    getComments(context) {
+    getArticleDetail(context, articleId) {
       axios
-        .get(`${API_URL}/articles/comments/`, {
+        .get(`${API_URL}/articles/${articleId}/`, {
+          headers: {
+            Authorization: `Token ${context.state.token}`,
+          },
+        })
+        .then((res) => {
+          context.commit('GET_ARTICLE_DETAIL', res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getComments(context, articleId) {
+      axios
+        .get(`${API_URL}/articles/${articleId}/comments/`, {
           headers: {
             Authorization: `Token ${context.state.token}`,
           },
         })
         .then((res) => {
           context.commit('GET_COMMENTS', res.data);
-        });
+        })
+        .catch((err) => {
+          console.log('getCommentsErr', err)
+        })
     },
   },
 
