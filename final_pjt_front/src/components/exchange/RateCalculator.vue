@@ -41,7 +41,7 @@
 // import axios from 'axios'
 
 // const API_URL = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON'
-// const API_KEY = 'PoeFtZSihXOPw74jOsxSmWMJxQw6G9Ea'
+// const API_KEY = process.env.VUE_APP_EXCHANGE_RATE_API_KEY;
 
 export default {
   name: 'RateCalculator',
