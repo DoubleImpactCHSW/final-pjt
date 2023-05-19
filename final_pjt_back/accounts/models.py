@@ -54,3 +54,12 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             # this adapter by adding
             user.save()
         return user
+
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     age = models.IntegerField(blank=True)
+#     money = models.IntegerField(blank=True)
+#     salary = models.IntegerField(blank=True)
+
+#     def __str__(self):
+#         return f'{self.user.username} Profile'
