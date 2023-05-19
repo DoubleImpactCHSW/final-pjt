@@ -15,6 +15,7 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
+    username: null,
     signUpError: null,
     // communityMode는 community에 띄울 컴포넌트 결정
     // 'all' : 게시글 전체 조회
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({ name: 'home' })
+    },
+    SAVE_USERNAME(state, username) {
+      state.username = username
     },
     REMOVE_TOKEN(state) {
       state.token = null
@@ -92,7 +96,9 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
+          console.log(res)
           context.commit('SAVE_TOKEN', res.data.key)
+          context.commit('SAVE_USERNAME', username)
         })
         .catch((err) => {
           console.log(err)
