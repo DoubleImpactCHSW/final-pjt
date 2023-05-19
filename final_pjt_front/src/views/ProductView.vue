@@ -1,29 +1,21 @@
 <template>
-    <div>
-        <h1>상품 조회 View</h1>
-    </div>
+  <div>
+    <h1>상품 조회 View</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'ProductView',
+  name: 'ProductView',
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
