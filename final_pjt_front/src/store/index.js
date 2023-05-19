@@ -137,22 +137,29 @@ export default new Vuex.Store({
           context.commit('GET_ARTICLES', res.data);
         })
         .catch((err) => {
+          if (err.response && err.response.status === 404) {
+            // 404 에러인 경우 아무 일도 하지 않고 종료
+            return;
+          }
           console.log(err);
         });
     },
     getArticleDetail(context, payload) {
       context.commit('GET_ARTICLE_DETAIL', payload);
     },
-    getComments(context) {
+    getComments(context, articleId) {
       axios
-        .get(`${API_URL}/articles/comments/`, {
+        .get(`${API_URL}/articles/${articleId}/comments/`, {
           headers: {
             Authorization: `Token ${context.state.token}`,
           },
         })
         .then((res) => {
           context.commit('GET_COMMENTS', res.data);
-        });
+        })
+        .catch((err) => {
+          console.log('getCommentsErr', err)
+        })
     },
   },
 

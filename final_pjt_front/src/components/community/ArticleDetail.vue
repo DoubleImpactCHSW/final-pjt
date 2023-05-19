@@ -73,7 +73,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.$store.dispatch('getComments');
+          this.$store.dispatch('getComments', this.id);
         })
         .catch((err) => {
           console.log(err);
