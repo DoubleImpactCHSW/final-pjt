@@ -38,12 +38,12 @@ export default new Vuex.Store({
       state.token = token
       router.push({ name: 'home' })
     },
-    SAVE_USERNAME(state, username) {
-      state.username = username
-    },
     REMOVE_TOKEN(state) {
       state.token = null
       router.push({ name: 'login' })
+    },
+    SAVE_USERNAME(state, username) {
+      state.username = username
     },
     CHANGE_COMMUNITY_MODE(state, payload) {
       state.communityMode = payload
@@ -112,6 +112,7 @@ export default new Vuex.Store({
       .then((res) => {
         console.log(res)
         context.commit('REMOVE_TOKEN')
+        context.commit('SAVE_USERNAME', null)
       })
       .catch((err) => {
         console.log(err)
