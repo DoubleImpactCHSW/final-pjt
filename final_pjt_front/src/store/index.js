@@ -15,23 +15,51 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
+    username: null,
     signUpError: null,
+    // communityMode는 community에 띄울 컴포넌트 결정
+    // 'all' : 게시글 전체 조회
+    // 'post' : ArticleForm
+    // 'detail' : 게시글 상세 조회
+    communityMode: 'all',
+    articles: [],
+    articleDetail: {},
+    commentsList: [],
   },
+
   getters: {
     isLogin(state) {
       return !!state.token
     }
   },
+
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
       router.push({ name: 'home' })
     },
+    SAVE_USERNAME(state, username) {
+      state.username = username
+    },
     REMOVE_TOKEN(state) {
       state.token = null
       router.push({ name: 'login' })
+    },
+    CHANGE_COMMUNITY_MODE(state, payload) {
+      state.communityMode = payload
+    },
+    GET_ARTICLES(state, data) {
+      state.articles = data
+    },
+    GET_ARTICLE_DETAIL(state, detail) {
+      state.articleDetail = detail
+      state.communityMode = 'detail'
+    },
+    GET_COMMENTS(state, comments) {
+      state.commentsList = comments
     }
   },
+
   actions: {
     signUp(context, payload) {
       const username = payload.username
@@ -68,7 +96,9 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
+          console.log(res)
           context.commit('SAVE_TOKEN', res.data.key)
+          context.commit('SAVE_USERNAME', username)
         })
         .catch((err) => {
           console.log(err)
@@ -86,8 +116,37 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
+    },
+    changeCommunityMode(context, payload) {
+      context.commit('CHANGE_COMMUNITY_MODE', payload)
+    },
+    getArticles(context) {
+      axios.get(`${API_URL}/articles/`, {
+            headers: {
+                Authorization: `Token ${context.state.token}`
+            }
+        })
+        .then((res) => {
+            context.commit('GET_ARTICLES', res.data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    },
+    getArticleDetail(context, payload) {
+      context.commit('GET_ARTICLE_DETAIL', payload)
+    },
+    getComments(context) {
+      axios.get(`${API_URL}/articles/comments/`, {
+          headers: {
+              Authorization: `Token ${context.state.token}`
+          }
+      }).then((res) => {
+          context.commit('GET_COMMENTS', res.data)
+      })
     }
   },
+
   modules: {
   }
 })
