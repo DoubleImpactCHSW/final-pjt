@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework import status
-from .models import DepositProducts, SavingProducts
+from .models import DepositProducts, SavingProducts, DepositOptions, SavingOptions
 from .serializers import DepositProductsSerializer,DepositOptionsSerializer, SavingProductsSerializer, SavingOptionsSerializer
 import requests
 from django.db.models import Max
@@ -13,6 +13,10 @@ from accounts.models import User
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse
+# 관리자 권한을 가진 사용자만 해당 api에 접근
+from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import api_view, permission_classes
+from django.core.mail import send_mail
 # Create your views here.
 
 BASE_URL = 'http://finlife.fss.or.kr/finlifeapi/'
@@ -127,3 +131,26 @@ def registered_product(request,user_id,fin_prdt_cd):
         user.financial_products = fin_prdt_cd
     user.save()
     return HttpResponse("상품 가입이 완료되었습니다.")
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def update_interest_rate(request,option_id):
+    saving_option = DepositOptions.objects.get(pk=option_id)
+    new_interest_rate = request.data.get('intr_rate')
+    old_interest_rate = saving_option.intr_rate
+
+    saving_option.intr_rate = new_interest_rate
+    saving_option.save()
+
+    # 해당 상품을 이용하는 사용자들의 이메일 주소 가져오기
+    saving_option = DepositOptions.objects.select_related('fin_prdt_cd').get(pk=option_id)
+    financial_products = saving_option.fin_prdt_cd.financial_products
+    users = User.objects.filter(financial_products=financial_products)
+    recipient_list = [user.email for user in users]
+
+    # 이메일 전송
+    subject = '금리 수정 확인'
+    message = f'상품의 금리가 수정되었습니다. 이전 금리: {old_interest_rate}, 새로운 금리: {new_interest_rate}'
+    send_mail(subject, message, 'jasmine1714@naver.com', recipient_list)
+
+    return Response({'message': '저축 금리 정보가 수정되었습니다.'})

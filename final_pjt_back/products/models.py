@@ -41,8 +41,8 @@ class SavingOptions(models.Model):
     fin_prdt_cd = models.ForeignKey(SavingProducts, on_delete=models.CASCADE, related_name="savingoptions")
     # 저축금리 유형명
     intr_rate_type_nm = models.CharField(max_length=100)
-    # 저출금리
-    intr_rate = models.FloatField()
+    # 저축 금리
+    intr_rate = models.FloatField(default=0)
     # 최고 우대 금리
     intr_rate2 = models.FloatField()
     # 저축기간
