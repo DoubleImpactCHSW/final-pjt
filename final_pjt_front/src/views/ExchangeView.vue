@@ -1,29 +1,30 @@
 <template>
-    <div>
-        <h1>환율 페이지</h1>
-    </div>
+  <div>
+    <h1>환율 페이지</h1>
+
+    <hr />
+
+    <RateCalculator />
+  </div>
 </template>
 
 <script>
+import RateCalculator from '@/components/exchange/RateCalculator';
 export default {
-    name: 'ExchangeView',
+  name: 'ExchangeView',
 
-    data() {
-        return {
-            
-        };
-    },
+  components: {
+    RateCalculator,
+  },
 
-    mounted() {
-        
-    },
+  data() {
+    return {};
+  },
 
-    methods: {
-        
-    },
+  mounted() {},
+
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

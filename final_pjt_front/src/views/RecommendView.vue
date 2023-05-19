@@ -1,29 +1,21 @@
 <template>
-    <div>
-        <h1>추천 게임 view</h1>
-    </div>
+  <div>
+    <h1>추천 게임 view</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'RecommendView',
+  name: 'RecommendView',
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

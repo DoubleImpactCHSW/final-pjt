@@ -1,81 +1,81 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ProductView from '../views/ProductView.vue'
-import ExchangeView from '../views/ExchangeView.vue'
-import MypageView from '../views/MypageView.vue'
-import BankMapView from '../views/BankMapView.vue'
-import SignUpView from '../views/SignUpView.vue'
-import LogInView from '../views/LogInView.vue'
-import ArticleView from '../views/ArticleView.vue'
-import RecommendView from '../views/RecommendView.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import ProductView from '../views/ProductView.vue';
+import ExchangeView from '../views/ExchangeView.vue';
+import MypageView from '../views/MypageView.vue';
+import BankMapView from '../views/BankMapView.vue';
+import SignUpView from '../views/SignUpView.vue';
+import LogInView from '../views/LogInView.vue';
+import ArticleView from '../views/ArticleView.vue';
+import RecommendView from '../views/RecommendView.vue';
 
-import store from '../store'
+import store from '../store';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/signup',
     name: 'signup',
-    component: SignUpView
-  },{
+    component: SignUpView,
+  },
+  {
     path: '/login',
     name: 'login',
     component: LogInView,
     beforeEnter: (to, from, next) => {
       /* must call `next` */
       if (store.getters.isLogin) {
-        alert('이미 로그인되었습니다.')
-        next(false)
+        alert('이미 로그인되었습니다.');
+        next(false);
       } else {
-        next()
+        next();
       }
-    }
+    },
   },
   {
     path: '/product',
     name: 'product',
-    component: ProductView
+    component: ProductView,
   },
   {
     path: '/exchange',
     name: 'exchange',
-    component: ExchangeView
+    component: ExchangeView,
   },
   {
     path: '/mypage',
     name: 'mypage',
-    component: MypageView
+    component: MypageView,
   },
   {
     path: '/bankmap',
     name: 'bankmap',
-    component: BankMapView
+    component: BankMapView,
   },
   {
     path: '/article',
     name: 'article',
-    component: ArticleView
+    component: ArticleView,
   },
   {
     path: '/recommend',
     name: 'recommend',
-    component: RecommendView
+    component: RecommendView,
   },
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
-
+  routes,
+});
 
 // router.beforeEach((to, from, next) => {
 //   if (!store.getters.isLogin) {
@@ -90,4 +90,4 @@ const router = new VueRouter({
 //   }
 // })
 
-export default router
+export default router;
