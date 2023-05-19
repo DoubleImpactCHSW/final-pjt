@@ -11,6 +11,7 @@
         v-for="article in articles"
         :key="article.id"
         :id="article.id"
+        :writer="article.username"
         :title="article.title"
         :content="article.content"
       />

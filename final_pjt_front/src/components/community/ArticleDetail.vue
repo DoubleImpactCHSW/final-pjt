@@ -7,6 +7,9 @@
     <CommentBox
       v-for="comment in commentsList"
       :key="comment.id"
+      :comment-id="comment.id"
+      :article-id="comment.article"
+      :writer="comment.username"
       :content="comment.content"
       :created-at="comment.created_at"
     />
@@ -53,7 +56,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('getComments');
+    this.$store.dispatch('getComments', this.id);
   },
 
   methods: {
