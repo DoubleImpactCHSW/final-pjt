@@ -5,6 +5,8 @@ from allauth.account import app_settings as allauth_account_settings
 from allauth.account.adapter import get_adapter
 from allauth.account.utils import setup_user_email
 from django.utils.translation import gettext_lazy as _
+from .models import User
+
 
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(
@@ -68,3 +70,16 @@ class RegisterSerializer(serializers.Serializer):
         self.custom_signup(request, user)
         setup_user_email(request, user, [])
         return user
+
+class UserSerializer(serializers.ModelSerializer):
+    age = serializers.IntegerField(source='profile.age')
+    money = serializers.IntegerField(source='profile.money')
+    salary = serializers.IntegerField(source='profile.salary')
+    # id, username, financial_products은 수정할 수 없도록
+    id = serializers.ReadOnlyField()
+    username = serializers.ReadOnlyField()
+    financial_products = serializers.ReadOnlyField()
+
+    class Meta:
+        model = User
+        fields = ['id','username','nickname','email','financial_products','age','money','salary',]
