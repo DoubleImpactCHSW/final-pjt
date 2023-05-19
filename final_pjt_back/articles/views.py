@@ -53,10 +53,9 @@ def article_detail(request, article_pk):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def comment_list(request):
+def comment_list(request, article_pk):
     if request.method == 'GET':
-        # comments = Comment.objects.all()
-        comments = get_list_or_404(Comment)
+        comments = Comment.objects.filter(article=article_pk)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
 
