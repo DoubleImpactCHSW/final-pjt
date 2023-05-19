@@ -1,29 +1,21 @@
 <template>
-    <div>
-        <h1>은행 지도</h1>
-    </div>
+  <div>
+    <h1>은행 지도</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'BankMapView',
+  name: 'BankMapView',
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

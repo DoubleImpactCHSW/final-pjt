@@ -1,35 +1,31 @@
 <template>
-    <div class="box p-3">
-        <p>{{ createdAt }}</p>
-        <p>{{ content }}</p>
-    </div>
+  <div class="box p-3">
+    <p>{{ createdAt }}</p>
+    <p>{{ content }}</p>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'CommentBox',
+  name: 'CommentBox',
 
-    props: {
-        content: String,
-        createdAt: String,
-    },
+  props: {
+    content: String,
+    createdAt: String,
+  },
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
 <style scoped>
 .box {
-    width: 50%;
-    border: solid 2px lightgreen;
-    border-radius: 20px;
+  width: 50%;
+  border: solid 2px lightgreen;
+  border-radius: 20px;
 }
 </style>

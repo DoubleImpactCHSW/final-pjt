@@ -1,29 +1,21 @@
 <template>
-    <div>
-        <h1>마이페이지 View</h1>
-    </div>
+  <div>
+    <h1>마이페이지 View</h1>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'MypageView',
+  name: 'MypageView',
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

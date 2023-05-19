@@ -1,33 +1,27 @@
 <template>
-    <div>
-        <h3>제목: {{ title }}</h3>
-        <p>작성일: {{ createdAt }}</p>
-        <p>내용: {{ content }}</p>
-    </div>
+  <div>
+    <h3>제목: {{ title }}</h3>
+    <p>작성일: {{ createdAt }}</p>
+    <p>내용: {{ content }}</p>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'DetailContent',
+  name: 'DetailContent',
 
-    props: {
-        title: String,
-        content: String,
-        createdAt: String,
-    },
+  props: {
+    title: String,
+    content: String,
+    createdAt: String,
+  },
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
