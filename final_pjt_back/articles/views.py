@@ -25,8 +25,7 @@ def article_list(request):
     elif request.method == 'POST':
         serializer = ArticleSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            # serializer.save(user=request.user)
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET', 'DELETE', 'PUT'])
@@ -53,10 +52,9 @@ def article_detail(request, article_pk):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def comment_list(request):
+def comment_list(request, article_pk):
     if request.method == 'GET':
-        # comments = Comment.objects.all()
-        comments = get_list_or_404(Comment)
+        comments = Comment.objects.filter(article=article_pk)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
 
