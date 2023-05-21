@@ -133,24 +133,39 @@ def registered_product(request,user_id,fin_prdt_cd):
     return HttpResponse("상품 가입이 완료되었습니다.")
 
 @api_view(['PUT'])
-@permission_classes([IsAdminUser])
+# @permission_classes([IsAdminUser])
 def update_interest_rate(request,option_id):
+    # 금리 바꾸기
     saving_option = DepositOptions.objects.get(pk=option_id)
     new_interest_rate = request.data.get('intr_rate')
     old_interest_rate = saving_option.intr_rate
 
     saving_option.intr_rate = new_interest_rate
     saving_option.save()
+    serializer = DepositOptionsSerializer(saving_option)
+    # return JsonResponse(serializer.data)
 
-    # 해당 상품을 이용하는 사용자들의 이메일 주소 가져오기
-    saving_option = DepositOptions.objects.select_related('fin_prdt_cd').get(pk=option_id)
-    financial_products = saving_option.fin_prdt_cd.financial_products
-    users = User.objects.filter(financial_products=financial_products)
-    recipient_list = [user.email for user in users]
+    # product는 숫자로 나옴
+    product = saving_option.fin_prdt_cd
+    # print(product.id)
+    if isinstance(product, DepositProducts):
+        myproduct = DepositProducts.objects.get(id=product.id)
+        # print(myproduct.fin_prdt_cd)
+        users = User.objects.filter(financial_products=myproduct.fin_prdt_cd)
+        # print(users)
+        # 사용자들의 이메일 주소 가져오기
+        email_list = list(users.values_list('email', flat=True))
+        # print(email_list)
+        # 이메일 보내기
+        subject = '금리 변경 안내'
+        message = f'안녕하세요, 금리가 {old_interest_rate}에서 {new_interest_rate}로 변경되었습니다.'
+        from_email = 'jasmine1714@naver.com'
+        recipient_list = email_list
 
-    # 이메일 전송
-    subject = '금리 수정 확인'
-    message = f'상품의 금리가 수정되었습니다. 이전 금리: {old_interest_rate}, 새로운 금리: {new_interest_rate}'
-    send_mail(subject, message, 'jasmine1714@naver.com', recipient_list)
-
-    return Response({'message': '저축 금리 정보가 수정되었습니다.'})
+        send_mail(subject, message, from_email, recipient_list)
+        #  fin_prdt_cd를 가져와서 
+        # User의 fin_prdt_cd와 일치하면 email 보내
+        return JsonResponse(serializer.data)
+    else:
+        return Response({'message': '유효한 상품이 아닙니다.'}, status=400)
+    
