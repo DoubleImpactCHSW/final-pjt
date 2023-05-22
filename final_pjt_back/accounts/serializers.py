@@ -72,9 +72,9 @@ class RegisterSerializer(serializers.Serializer):
         return user
 
 class UserSerializer(serializers.ModelSerializer):
-    age = serializers.IntegerField(source='profile.age')
-    money = serializers.IntegerField(source='profile.money')
-    salary = serializers.IntegerField(source='profile.salary')
+    age = serializers.IntegerField(source='profile.age', read_only=True)
+    money = serializers.IntegerField(source='profile.money', read_only=True)
+    salary = serializers.IntegerField(source='profile.salary', read_only=True)
     # id, username, financial_products은 수정할 수 없도록
     id = serializers.ReadOnlyField()
     username = serializers.ReadOnlyField()
