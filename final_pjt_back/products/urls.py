@@ -5,10 +5,14 @@ app_name="products"
 urlpatterns = [
     # 정기예금 상품 목록 DB 에 저장
     path('save-deposit-products/', views.save_deposit_products),
+    # 정기예금 옵션 목록 DB 에 저장
+    path('save-deposit-options/', views.save_deposit_options),
     # 전체 정기예금 상품 목록 출력
     path('deposit-products/', views.deposit_products),
     # 정기적금 상품 목록 DB 에 저장
     path('save-saving-products/', views.save_saving_products),
+    # 정기적금 옵션 목록 DB 에 저장
+    path('save-saving-options/', views.save_saving_options),
     # 전체 정기적금 상품 목록 출력
     path('saving-products/', views.saving_products),
     # 정기예금 상세
