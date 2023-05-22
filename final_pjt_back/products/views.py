@@ -53,33 +53,18 @@ def save_deposit_products(request):
         serializer.save()
 
 
-# def save_deposit_options(request):
-#     URL = BASE_URL + 'depositProductsSearch.json'
-#     params = {
-#         'auth' : settings.API_KEY,
-#         'topFinGrpNo' : '020000',
-#         'pageNo' : 1
-#     }
-#     response = requests.get(URL, params=params).json()
-    # options = response['result']['optionList']
-    # for item in options:
-    #     for key in item.keys():
-    #         if item.get(key) is None:
-    #             item[key] = -1
-    #     deposit = DepositProducts.objects.get(fin_prdt_cd=item['fin_prdt_cd'])
-    #     serializer = DepositOptionsSerializer(data=item)
-    #     if serializer.is_valid(raise_exception=True):
-    #         serializer.save(fin_prdt_cd=deposit)
-    # return HttpResponse("Data saved successfully")
 
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def save_deposit_options(request):
     URL = BASE_URL + 'depositProductsSearch.json'
     params = {
-        'auth': settings.API_KEY,
-        'topFinGrpNo': '020000',
-        'pageNo': 1
+        'auth' : settings.API_KEY,
+        'topFinGrpNo' : '020000',
+        'pageNo' : 1
     }
     response = requests.get(URL, params=params).json()
+    
     options = response['result']['optionList']
     
     if DepositOptions.objects.count() == 0:  # 데이터가 없는 경우에만 저장
@@ -121,7 +106,9 @@ def save_saving_products(request):
     if serializer.is_valid(raise_exception=True):
         serializer.save()
 
-
+    
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
 def save_saving_options(request):
     URL = BASE_URL + 'savingProductsSearch.json'
     params = {

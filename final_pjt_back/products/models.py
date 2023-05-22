@@ -2,10 +2,11 @@ from django.db import models
 
 # Create your models here.
 class DepositProducts(models.Model):
+
     dcls_month = models.IntegerField(default='')
     fin_prdt_cd = models.TextField(unique=True)
-    kor_co_nm = models.TextField()
-    fin_prdt_nm = models.TextField()
+    kor_co_nm = models.TextField() # 금융 회사 명
+    fin_prdt_nm = models.TextField() # 금융 상품 명
     etc_note = models.TextField()
     join_deny = models.IntegerField()
     join_member = models.TextField()

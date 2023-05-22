@@ -78,14 +78,15 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log(res);
+          console.log('signup passed', res);
           context.state.signUpError = null;
-          context.commit('SAVE_TOKEN', res.data.key);
-          alert('가입을 축하합니다 ><');
+          // context.commit('SAVE_TOKEN', res.data.key);
+          alert('가입을 축하합니다! >< \n 로그인 해주세요~');
+          router.push({ name: 'login' })
         })
         .catch((err) => {
           context.state.signUpError = err.response.data;
-          console.log(err);
+          console.log('signUp err:' ,err);
         });
     },
     login(context, payload) {
