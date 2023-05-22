@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>상품 조회 View</h1>
-    <span @click="depositOn">정기예금</span> |
-    <span @click="savingsOn">정기적금</span>
+    <b-button @click="depositOn">정기예금</b-button> |
+    <b-button @click="savingsOn">정기적금</b-button>
     <div class="d-flex justify-content-around">
       <div>
         <h5>은행을 선택하세요.</h5>
@@ -37,6 +37,8 @@
 
 <script>
 import ProductsTable from '@/components/products/ProductsTable'
+// import axios from 'axios'
+// const API_URL = 'http://127.0.0.1:8000'
 export default {
   name: 'ProductView',
 
@@ -48,10 +50,30 @@ export default {
     return {
       showDeposit: true,
       bank: null,
+      depositData: [],
+      savingsData: [],
     };
   },
 
-  mounted() {},
+  mounted() {
+    // axios.get(`${API_URL}/products/save-deposit-products/`)
+    // .then((res) => {
+    //   console.log('예금 상품 목록 저장 완료', res)
+    //   axios.get(`${API_URL}/products/save-deposit-options/`) 
+    // })
+    // .catch((err) => {
+    //   console.log('예금 상품 목록 저장 실패:', err)
+    // })
+
+    // axios.get(`${API_URL}/products/save-saving-products/`)
+    // .then((res) => {
+    //   console.log('예금 상품 목록 저장 완료', res)
+    //   axios.get(`${API_URL}/products/save-saving-options/`) 
+    // })
+    // .catch((err) => {
+    //   console.log('예금 상품 목록 저장 실패:', err)
+    // })
+  },
 
   methods: {
     depositOn() {

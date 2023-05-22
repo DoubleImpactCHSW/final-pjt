@@ -5,9 +5,9 @@ from products.models import DepositProducts, SavingProducts
 class User(AbstractUser):
     nickname = models.CharField(max_length=50)
     financial_products = models.CharField(max_length=50,blank=True, null=True)
-    age = models.IntegerField(blank=True)
-    money = models.IntegerField(blank=True)
-    salary = models.IntegerField(blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    money = models.IntegerField(blank=True, null=True)
+    salary = models.IntegerField(blank=True, null=True)
 
     
 # 상속 받아서 구현해보기
