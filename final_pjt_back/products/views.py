@@ -184,16 +184,16 @@ def update_interest_rate(request,option_id):
 
     # product는 숫자로 나옴
     product = saving_option.fin_prdt_cd
-    print(product.id)
+    # print(product.id)
     if isinstance(product, DepositProducts):
         myproduct = DepositProducts.objects.get(id=product.id)
-        print(myproduct.fin_prdt_cd)
+        # print(myproduct.fin_prdt_cd)
         users = User.objects.filter(financial_products__contains=myproduct.fin_prdt_cd)
-        print(users)
-        print(myproduct.fin_prdt_cd)
+        # print(users)
+        # print(myproduct.fin_prdt_cd)
         # 사용자들의 이메일 주소 가져오기
         email_list = list(users.values_list('email', flat=True))
-        print(email_list)
+        # print(email_list)
     # return JsonResponse(serializer.data)
 
         # 이메일 보내기
@@ -201,7 +201,10 @@ def update_interest_rate(request,option_id):
         message = f'안녕하세요, 금리가 {old_interest_rate}에서 {new_interest_rate}로 변경되었습니다.'
         from_email = 'jasmine1714@naver.com'
         recipient_list = email_list
-        send_mail(subject, message, from_email, recipient_list)
+        send_mail(subject, message, from_email, recipient_list,fail_silently=False,)
         return JsonResponse(serializer.data)
     else:
         return Response({'message': '유효한 상품이 아닙니다.'}, status=400)
+    
+
+
