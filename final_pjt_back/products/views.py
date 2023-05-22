@@ -53,6 +53,7 @@ def save_deposit_products(request):
         serializer.save()
 
 
+
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
 def save_deposit_options(request):
@@ -65,17 +66,23 @@ def save_deposit_options(request):
     response = requests.get(URL, params=params).json()
     
     options = response['result']['optionList']
-    for item in options:
-        for key in item.keys():
-            if item.get(key) is None:
-                item[key] = -1
-        deposit = DepositProducts.objects.get(fin_prdt_cd=item['fin_prdt_cd'])
-        serializer = DepositOptionsSerializer(data=item)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(fin_prdt_cd=deposit)
+    
+    if DepositOptions.objects.count() == 0:  # 데이터가 없는 경우에만 저장
+        for item in options:
+            for key in item.keys():
+                if item.get(key) is None:
+                    item[key] = -1
+
+            deposit = DepositProducts.objects.get(fin_prdt_cd=item['fin_prdt_cd'])
+            serializer = DepositOptionsSerializer(data=item)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(fin_prdt_cd=deposit)
+        return HttpResponse("Data saved successfully")
+    else:
+        return HttpResponse("Data already exists")
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def deposit_products(request):
     products = DepositProducts.objects.all()
     serializer = DepositProductsSerializer(products, many=True)
@@ -98,6 +105,7 @@ def save_saving_products(request):
     serializer = SavingProductsSerializer(data=products, many=True)
     if serializer.is_valid(raise_exception=True):
         serializer.save()
+
     
 @api_view(['GET'])
 # @permission_classes([IsAuthenticated])
@@ -109,27 +117,34 @@ def save_saving_options(request):
         'pageNo' : 1
     }
     response = requests.get(URL, params=params).json()
-
     options = response['result']['optionList']
     for item in options:
         for key in item.keys():
             if item.get(key) is None:
                 item[key] = -1
-        saving = SavingProducts.objects.get(fin_prdt_cd=item['fin_prdt_cd'])
-        serializer = SavingOptionsSerializer(data=item)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(fin_prdt_cd=saving)
+
+        fin_prdt_cd = item['fin_prdt_cd']
+
+        if not SavingProducts.objects.filter(fin_prdt_cd=fin_prdt_cd).exists():
+            saving = SavingProducts(fin_prdt_cd=fin_prdt_cd)
+            saving.save()
+            serializer = SavingOptionsSerializer(data=item)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(fin_prdt_cd=saving)
+
+    return HttpResponse("Data saved successfully")
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def saving_products(request):
+def saving_products(request): 
     products = SavingProducts.objects.all()
     serializer = SavingProductsSerializer(products, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def deposit_product_detail(request,fin_prdt_cd):
     product = get_object_or_404(DepositProducts, fin_prdt_cd=fin_prdt_cd)
     serializer = DepositProductsSerializer(product)
@@ -155,6 +170,8 @@ def registered_product(request,user_id,fin_prdt_cd):
     user.save()
     return HttpResponse("상품 가입이 완료되었습니다.")
 
+
+
 @api_view(['PUT'])
 # @permission_classes([IsAdminUser])
 def update_interest_rate(request,option_id):
@@ -173,22 +190,20 @@ def update_interest_rate(request,option_id):
     # print(product.id)
     if isinstance(product, DepositProducts):
         myproduct = DepositProducts.objects.get(id=product.id)
+        print(myproduct.fin_prdt_cd)
+        users = User.objects.filter(financial_products__contains=myproduct.fin_prdt_cd)
+        print(users)
         # print(myproduct.fin_prdt_cd)
-        users = User.objects.filter(financial_products=myproduct.fin_prdt_cd)
-        # print(users)
         # 사용자들의 이메일 주소 가져오기
         email_list = list(users.values_list('email', flat=True))
         # print(email_list)
+
         # 이메일 보내기
-        subject = '금리 변경 안내'
+        subject = f'금리 수정 확인 - 상품명:{myproduct.fin_prdt_nm}'
         message = f'안녕하세요, 금리가 {old_interest_rate}에서 {new_interest_rate}로 변경되었습니다.'
         from_email = 'jasmine1714@naver.com'
         recipient_list = email_list
-
         send_mail(subject, message, from_email, recipient_list)
-        #  fin_prdt_cd를 가져와서 
-        # User의 fin_prdt_cd와 일치하면 email 보내
         return JsonResponse(serializer.data)
     else:
         return Response({'message': '유효한 상품이 아닙니다.'}, status=400)
-    
