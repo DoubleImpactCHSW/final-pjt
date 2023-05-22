@@ -47,10 +47,22 @@ def save_deposit_products(request):
     }
     response = requests.get(URL, params=params).json()
 
-    # products = response['result']['baseList']
-    # serializer = DepositProductsSerializer(data=products, many=True)
-    # if serializer.is_valid(raise_exception=True):
-    #     serializer.save()
+    products = response['result']['baseList']
+    serializer = DepositProductsSerializer(data=products, many=True)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+
+
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def save_deposit_options(request):
+    URL = BASE_URL + 'depositProductsSearch.json'
+    params = {
+        'auth' : settings.API_KEY,
+        'topFinGrpNo' : '020000',
+        'pageNo' : 1
+    }
+    response = requests.get(URL, params=params).json()
     
     options = response['result']['optionList']
     for item in options:
@@ -82,11 +94,22 @@ def save_saving_products(request):
     }
     response = requests.get(URL, params=params).json()
 
-    # products = response['result']['baseList']
-    # serializer = SavingProductsSerializer(data=products, many=True)
-    # if serializer.is_valid(raise_exception=True):
-    #     serializer.save()
+    products = response['result']['baseList']
+    serializer = SavingProductsSerializer(data=products, many=True)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
     
+@api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+def save_saving_options(request):
+    URL = BASE_URL + 'savingProductsSearch.json'
+    params = {
+        'auth' : settings.API_KEY,
+        'topFinGrpNo' : '020000',
+        'pageNo' : 1
+    }
+    response = requests.get(URL, params=params).json()
+
     options = response['result']['optionList']
     for item in options:
         for key in item.keys():
