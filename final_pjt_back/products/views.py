@@ -118,22 +118,20 @@ def save_saving_options(request):
     }
     response = requests.get(URL, params=params).json()
     options = response['result']['optionList']
-    for item in options:
-        for key in item.keys():
-            if item.get(key) is None:
-                item[key] = -1
+    if SavingOptions.objects.count() == 0:  # 데이터가 없는 경우에만 저장
+        for item in options:
+            for key in item.keys():
+                if item.get(key) is None:
+                    item[key] = -1
 
-        fin_prdt_cd = item['fin_prdt_cd']
-
-        if not SavingProducts.objects.filter(fin_prdt_cd=fin_prdt_cd).exists():
-            saving = SavingProducts(fin_prdt_cd=fin_prdt_cd)
-            saving.save()
+            deposit = SavingProducts.objects.get(fin_prdt_cd=item['fin_prdt_cd'])
             serializer = SavingOptionsSerializer(data=item)
             if serializer.is_valid(raise_exception=True):
-                serializer.save(fin_prdt_cd=saving)
+                serializer.save(fin_prdt_cd=deposit)
 
-    return HttpResponse("Data saved successfully")
-
+        return HttpResponse("Data saved successfully")
+    else:
+        return HttpResponse("Data already exists")
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
