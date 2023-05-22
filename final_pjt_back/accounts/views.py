@@ -13,14 +13,14 @@ def test(request):
     return JsonResponse({ 'message': 'okay' })
 
 @api_view(['GET'])
-def profile(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+def profile(request, user_name):
+    user = get_object_or_404(User, username=user_name)
     serializer = UserSerializer(user)
     return JsonResponse(serializer.data)
 
 @api_view(['PUT'])
-def update(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
+def update(request, user_name):
+    user = get_object_or_404(User, username=user_name)
     serializer = UserSerializer(user, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()

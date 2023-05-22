@@ -1,0 +1,127 @@
+<template>
+    <div>
+        <div class="cont">
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">회원번호</span>
+                <span>{{ userId }}</span>
+            </div>
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">ID</span>
+                <span>{{ username }}</span>
+            </div>
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">닉네임</span>
+                <input v-model="nickname" type="text">
+            </div>
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">Email</span>
+                <input v-model="email" type="text">
+            </div>
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">나이</span>
+                <input v-model="age" type="number">
+            </div>
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">총 자산</span>
+                <input v-model="asset" type="number">
+            </div>
+            <div class="oneline d-flex justify-content-between m-3">
+                <span class="key mr-5">월 평균 수익</span>
+                <input v-model="salary" type="number">
+            </div>
+            <div class="oneline d-flex justify-content-between m-1">
+                <span></span>
+                <span>( 단위: 원 ₩ )</span>
+            </div>
+        </div>
+        <b-button @click="editProfile" variant="info">수정하기</b-button>
+
+        <hr>
+
+        <h3>가입한 상품 목록</h3>
+        <p>{{ finProducts }}</p>
+    </div>
+</template>
+
+<script>
+import axios from 'axios'
+
+const API_URL = 'http://127.0.0.1:8000'
+
+export default {
+    name: 'UserInfo',
+
+    data() {
+        return {
+            userId: '',
+            username: '',
+            nickname: '',
+            email: '',
+            age: '',
+            asset: '',
+            salary: '',
+            finProducts: '',
+        };
+    },
+
+    mounted() {
+        axios.get(`${API_URL}/accounts/profile/${this.$store.state.username}/`)
+        .then((res) => {
+            this.userId = res.data.id
+            this.username = res.data.username
+            this.nickname = res.data.nickname
+            this.email = res.data.email
+            this.age = res.data.age
+            this.asset = res.data.money
+            this.salary = res.data.salary
+            this.finProducts = res.data.financial_products
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    },
+
+    methods: {
+        editProfile() {
+            const formData = new FormData();
+            formData.append('id', this.userId);
+            formData.append('username', this.username);
+            formData.append('nickname', this.nickname);
+            formData.append('email', this.email);
+            formData.append('age', this.age);
+            formData.append('money', this.asset);
+            formData.append('salary', this.salary);
+            formData.append('financial_products', this.finProducts);
+
+      axios
+        .put(`${API_URL}/accounts/profile/update/${this.$store.state.username}/`, formData, {
+          headers: {
+            // Authorization: `Token ${this.$store.state.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          alert('프로필 정보가 수정되었습니다.')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        }
+    },
+};
+</script>
+
+<style scoped>
+.cont {
+    text-align: left;
+}
+.key {
+    font-size: 20px;
+    font-weight: bold;
+}
+.oneline {
+    width: 400px;
+}
+
+</style>
