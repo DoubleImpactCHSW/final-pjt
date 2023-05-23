@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="container">
+    <h2>은행 찾기</h2>
     <input type="text" v-model="searchQuery" placeholder="장소 검색" />
     <button @click="searchPlaces">검색</button>
-    <div id="map" style="width: 100%; height: 400px"></div>
+    <div id="map"></div>
   </div>
 </template>
 
@@ -93,3 +94,48 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+input {
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+button {
+  border: none;
+  border-radius: 4px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 50px;
+  font-size: 16px;
+}
+
+#map {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+</style>

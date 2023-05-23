@@ -1,12 +1,11 @@
 <template>
-  <div>
-    <h1>은행 지도</h1>
+  <div class="bankmap-view">
     <BankMap />
   </div>
 </template>
 
 <script>
-import BankMap from '@/components/bankmap/BankMap'
+import BankMap from '@/components/bankmap/BankMap';
 export default {
   name: 'BankMapView',
 
@@ -24,4 +23,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bankmap-view {
+  padding-top: 50px;
+}
+</style>
