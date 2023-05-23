@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'accounts',
     'articles',
     'products',
+    'recommendation',
     'rest_framework',
     'rest_framework.authtoken',
 
