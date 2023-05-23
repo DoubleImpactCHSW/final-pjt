@@ -127,8 +127,8 @@ button {
   padding-left: 30px;
   margin-right: 20px;
   margin-left: 20px;
-  font-size: 16px;
   margin-bottom: 50px;
+  font-size: 16px;
 }
 
 #map {
