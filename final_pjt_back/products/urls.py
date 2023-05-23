@@ -23,4 +23,6 @@ urlpatterns = [
     path('add/<str:user_name>/<str:fin_prdt_cd>/', views.register_product),
     # 금리 바꾸기
     path('update-interest-rate/<int:option_id>/', views.update_interest_rate),
+    # 포트 연결 상태 확인
+    path('check/', views.check),
 ]

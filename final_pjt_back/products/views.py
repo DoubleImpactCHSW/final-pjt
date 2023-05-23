@@ -17,6 +17,8 @@ from django.http import HttpResponse
 from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 from django.core.mail import send_mail
+import socket
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 BASE_URL = 'http://finlife.fss.or.kr/finlifeapi/'
@@ -161,6 +163,7 @@ def saving_product_detail(request,fin_prdt_cd):
 def register_product(request,user_name,fin_prdt_cd):
     user = User.objects.get(username=user_name)
     # 유저의 financial_products에 상품 정보 추가
+
     if user.financial_products:
         if user.financial_products.find(fin_prdt_cd) == -1:
             user.financial_products += f",{fin_prdt_cd}"
@@ -205,6 +208,16 @@ def update_interest_rate(request,option_id):
         from_email = 'jasmine1714@naver.com'
         recipient_list = email_list
         send_mail(subject, message, from_email, recipient_list)
-        return JsonResponse(serializer.data)
-    else:
-        return Response({'message': '유효한 상품이 아닙니다.'}, status=400)
+
+host = "smtp.naver.com"
+port = 587
+@csrf_exempt
+def check(request):
+    try:
+        sock = socket.create_connection((host, port), timeout=5)
+        sock.close()
+        result = f"Port {port} is open on {host}"
+        return JsonResponse({'result': result})
+    except (socket.timeout, ConnectionRefusedError):
+        result = f"Port {port} is closed on {host}"
+        return JsonResponse({'result': result})
