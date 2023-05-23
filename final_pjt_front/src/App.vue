@@ -1,20 +1,49 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/signup">signup</router-link> |
-      <router-link to="/login">login</router-link> |
-      <b-button v-if="isLogin" @click="logout" variant="danger"
-        >logout</b-button
-      >
-      <hr />
-      <div v-if="isLogin">
-        <router-link to="/product">product</router-link> |
-        <router-link to="/exchange">exchange</router-link> |
-        <router-link to="/mypage">mypage</router-link> |
-        <router-link to="/bankmap">bankmap</router-link> |
-        <router-link to="/article">community</router-link> |
-        <router-link to="/recommend">recommend</router-link> |
+    <nav class="navbar">
+      <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
+        <div class="d-flex align-items-center">
+          <div class="navbar-logo">
+            <router-link to="/">Logo</router-link>
+          </div>
+          <ul class="navbar-menu d-flex align-items-center" v-if="isLogin">
+            <li>
+              <router-link to="/product" class="nav-link">예적금 상품 조회</router-link>
+            </li>
+            <li>
+              <router-link to="/exchange" class="nav-link">환율 조회</router-link>
+            </li>
+            <li>
+              <router-link to="/bankmap" class="nav-link">은행 찾기</router-link>
+            </li>
+            <li>
+              <router-link to="/article" class="nav-link">커뮤니티</router-link>
+            </li>
+            <li>
+              <router-link to="/recommend" class="nav-link">상품 추천</router-link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <ul class="navbar-menu d-flex align-items-center" v-if="!isLogin">
+            <li>
+              <router-link to="/signup" class="nav-link">Signup</router-link>
+            </li>
+            <li>
+              <router-link to="/login" class="nav-link">Login</router-link>
+            </li>
+          </ul>
+          <div class="navbar-logout" v-if="isLogin">
+            <ul class="navbar-menu d-flex align-items-center">
+              <li>
+                <router-link to="/mypage" class="nav-link">My Page</router-link>
+              </li>
+              <li>
+                <b-button @click="logout" variant="danger">Logout</b-button>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </nav>
     <router-view />
@@ -46,16 +75,40 @@ export default {
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+.navbar {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-nav a {
+
+.navbar-logo {
+  color: #333;
+  font-size: 20px;
   font-weight: bold;
-  color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu li {
+  margin-left: 10px;
+}
+
+.navbar-menu li a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navbar-menu li a:hover {
   color: #42b983;
+}
+
+.navbar-logout {
+  margin-left: 10px;
 }
 </style>
