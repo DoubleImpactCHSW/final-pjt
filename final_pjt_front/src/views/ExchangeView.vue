@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <h1>환율 페이지</h1>
-
-    <hr />
-
-    <RateCalculator />
+  <div class="exchange-view">
+    <div class="content">
+      <hr />
+      <RateCalculator />
+      <hr />
+    </div>
   </div>
 </template>
 
@@ -16,15 +16,19 @@ export default {
   components: {
     RateCalculator,
   },
-
-  data() {
-    return {};
-  },
-
-  mounted() {},
-
-  methods: {},
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.exchange-view {
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  text-align: center;
+  color: #fff; /* Set font color for content */
+}
+</style>
