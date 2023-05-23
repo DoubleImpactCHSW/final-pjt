@@ -1,27 +1,29 @@
 <template>
   <div>
     <h1>상품 조회 View</h1>
-    <b-button @click="depositOn">정기예금</b-button> |
-    <b-button @click="savingsOn">정기적금</b-button>
-    <div class="d-flex">
-      <div>
-        <div>
-          <h5>은행을 선택하세요.</h5>
-          <select v-model="bank" name="bank" id="">
-            <option value="전체">전체</option>
-            <option v-for="bankname in depositBankList" :key="bankname" :value="bankname">{{ bankname }}</option>
-          </select>
+      <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center align-items-center" style="margin: 20px;">
+          <div class="my-3">
+            <h5>은행을 선택하세요.</h5>
+            <select v-model="bank" name="bank" id="">
+              <option value="전체">전체</option>
+              <option v-for="bankname in depositBankList" :key="bankname" :value="bankname">{{ bankname }}</option>
+            </select>
+          </div>
+          <div class="my-3">
+            <b-button @click="depositOn" variant="primary">정기예금</b-button>
+            <b-button @click="savingsOn" variant="primary">정기적금</b-button>
+          </div>  
+          <div class="my-3">
+            <ProductsTable @onProductSelected="handleSelected" :is-deposit="true" :bank-filter="selectedBank" :product-data="depositData" v-if="showDeposit"/>
+            <ProductsTable @onProductSelected="handleSelected" :is-deposit="false" :bank-filter="selectedBank" :product-data="savingsData" v-else/>
+          </div>
         </div>
-        <div>
-          <ProductsTable @onProductSelected="handleSelected" :is-deposit="true" :bank-filter="selectedBank" :product-data="depositData" v-if="showDeposit"/>
-          <ProductsTable @onProductSelected="handleSelected" :is-deposit="false" :bank-filter="selectedBank" :product-data="savingsData" v-else/>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h3>상품 상세 정보</h3>
+          <ProductDetail :detail-data="selectedDetailData"/>
         </div>
       </div>
-      <div class="m-5">
-        <h3>상품 상세 정보</h3>
-        <ProductDetail :detail-data="selectedDetailData"/>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -91,4 +93,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
