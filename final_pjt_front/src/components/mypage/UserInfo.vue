@@ -39,19 +39,29 @@
         <hr>
 
         <h3>가입한 상품 목록</h3>
-        <div v-for="product in finProducts" :key="product.productName">
-            <p>{{ product.bankName }} - {{ product.productName }}</p>
+        <div v-if="finProducts.length !== 0">
+            <div v-for="product in finProducts" :key="product.productName">
+                <p>{{ product.bankName }} - {{ product.productName }}</p>
+            </div>
+            <BarChart :fin-products="finProducts" />
+        </div>
+        <div v-else>
+            <p>Loading...</p>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-
+import BarChart from '@/components/mypage/BarChart'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
     name: 'UserInfo',
+
+    components: {
+        BarChart,
+    },
 
     data() {
         return {
@@ -87,7 +97,17 @@ export default {
                     return x.fin_prdt_cd === cd
                 })
 
-                const info = searchDeposit ? { bankName: searchDeposit.kor_co_nm , productName: searchDeposit.fin_prdt_nm } : { bankName: searchSavings.kor_co_nm , productName: searchSavings.fin_prdt_nm }
+                const info = searchDeposit ? {
+                    bankName: searchDeposit.kor_co_nm,
+                    productName: searchDeposit.fin_prdt_nm,
+                    rate: searchDeposit.depositoptions_set[0].intr_rate,
+                    primeRate: searchDeposit.depositoptions_set[0].intr_rate2,
+                    } : {
+                    bankName: searchSavings.kor_co_nm,
+                    productName: searchSavings.fin_prdt_nm,
+                    rate: searchSavings.savingoptions_set[0].intr_rate,
+                    primeRate: searchSavings.savingoptions_set[0].intr_rate2,
+                    }
 
                 return info
             })
