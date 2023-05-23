@@ -39,17 +39,29 @@
         <hr>
 
         <h3>가입한 상품 목록</h3>
-        <p>{{ finProducts }}</p>
+        <div v-if="finProducts.length !== 0">
+            <div v-for="product in finProducts" :key="product.productName">
+                <p>{{ product.bankName }} - {{ product.productName }}</p>
+            </div>
+            <BarChart :fin-products="finProducts" />
+        </div>
+        <div v-else>
+            <p>Loading...</p>
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-
+import BarChart from '@/components/mypage/BarChart'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
     name: 'UserInfo',
+
+    components: {
+        BarChart,
+    },
 
     data() {
         return {
@@ -60,7 +72,8 @@ export default {
             age: '',
             asset: '',
             salary: '',
-            finProducts: '',
+            finProducts: [],
+
         };
     },
 
@@ -74,7 +87,31 @@ export default {
             this.age = res.data.age
             this.asset = res.data.money
             this.salary = res.data.salary
-            this.finProducts = res.data.financial_products
+            const productsString = res.data.financial_products
+            const listedProducts = productsString.split(',')
+            const registeredProducts = listedProducts.map((cd) => {
+                const searchDeposit = this.$store.state.depositProductsData.find((x) => {
+                    return x.fin_prdt_cd === cd
+                })
+                const searchSavings = this.$store.state.savingsProductsData.find((x) => {
+                    return x.fin_prdt_cd === cd
+                })
+
+                const info = searchDeposit ? {
+                    bankName: searchDeposit.kor_co_nm,
+                    productName: searchDeposit.fin_prdt_nm,
+                    rate: searchDeposit.depositoptions_set[0].intr_rate,
+                    primeRate: searchDeposit.depositoptions_set[0].intr_rate2,
+                    } : {
+                    bankName: searchSavings.kor_co_nm,
+                    productName: searchSavings.fin_prdt_nm,
+                    rate: searchSavings.savingoptions_set[0].intr_rate,
+                    primeRate: searchSavings.savingoptions_set[0].intr_rate2,
+                    }
+
+                return info
+            })
+            this.finProducts = registeredProducts
         })
         .catch((err) => {
             console.log(err)

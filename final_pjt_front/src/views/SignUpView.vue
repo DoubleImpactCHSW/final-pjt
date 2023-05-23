@@ -61,7 +61,7 @@ export default {
       );
     },
     errorData() {
-      return this.$store.state.signUpError;
+      return this.$store.state.signUpError ?? [];
     },
   },
 
