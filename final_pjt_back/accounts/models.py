@@ -3,11 +3,11 @@ from django.contrib.auth.models import AbstractUser
 from products.models import DepositProducts, SavingProducts
 
 class User(AbstractUser):
-    nickname = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50, null=True)
     financial_products = models.CharField(max_length=50,blank=True, null=True)
-    age = models.IntegerField(blank=True)
-    money = models.IntegerField(blank=True)
-    salary = models.IntegerField(blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    money = models.IntegerField(blank=True, null=True, default=0)
+    salary = models.IntegerField(blank=True, null=True, default=0)
 
     
 # 상속 받아서 구현해보기
@@ -55,9 +55,9 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    age = models.IntegerField(blank=True)
-    money = models.IntegerField(blank=True)
-    salary = models.IntegerField(blank=True)
+    age = models.IntegerField(blank=True, null=True)
+    money = models.IntegerField(blank=True, null=True, default=0)
+    salary = models.IntegerField(blank=True, null=True, default=0)
 
     def __str__(self):
         return f'{self.user.username} Profile'
