@@ -18,15 +18,6 @@ def profile(request, user_name):
     serializer = UserSerializer(user)
     return Response(serializer.data)
 
-# @api_view(['PUT'])
-# def update(request, user_id):
-#     user = get_object_or_404(User, pk=user_id)
-#     serializer = UserSerializer(user, data=request.data, partial=True)
-#     if serializer.is_valid(raise_exception=True):
-#         serializer.save()
-#         return Response(serializer.data)
-#     return Response(serializer.errors, status=400)
-
 @api_view(['PUT'])
 def update(request, user_name):
     user = get_object_or_404(User, username=user_name)

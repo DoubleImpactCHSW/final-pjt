@@ -217,8 +217,8 @@ environ.Env.read_env(
 API_KEY = env('API_KEY')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.naver.com'
-EMAIL_HOST_USER = 'jasmine1714@naver.com'
+EMAIL_HOST = '125.209.238.155'
+EMAIL_HOST_USER = 'jasmine1714'
 EMAIL_HOST_PASSWORD = 'tjddnjs4778'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
