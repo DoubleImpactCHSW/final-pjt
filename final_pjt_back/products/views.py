@@ -134,7 +134,7 @@ def save_saving_options(request):
         return HttpResponse("Data already exists")
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def saving_products(request): 
     products = SavingProducts.objects.all()
     serializer = SavingProductsSerializer(products, many=True)
@@ -149,7 +149,7 @@ def deposit_product_detail(request,fin_prdt_cd):
     return Response(serializer.data)
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def saving_product_detail(request,fin_prdt_cd):
     product = get_object_or_404(SavingProducts, fin_prdt_cd=fin_prdt_cd)
     serializer = SavingProductsSerializer(product)
@@ -158,11 +158,14 @@ def saving_product_detail(request,fin_prdt_cd):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def registered_product(request,user_id,fin_prdt_cd):
-    user = User.objects.get(id=user_id)
+def register_product(request,user_name,fin_prdt_cd):
+    user = User.objects.get(username=user_name)
     # 유저의 financial_products에 상품 정보 추가
     if user.financial_products:
-        user.financial_products += f",{fin_prdt_cd}"
+        if user.financial_products.find(fin_prdt_cd) == -1:
+            user.financial_products += f",{fin_prdt_cd}"
+        else:
+            return HttpResponse("중복")
     else:
         user.financial_products = fin_prdt_cd
     user.save()

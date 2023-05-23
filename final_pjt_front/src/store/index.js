@@ -23,6 +23,8 @@ export default new Vuex.Store({
     articles: [],
     articleDetail: {},
     commentsList: [],
+    depositProductsData: [],
+    savingsProductsData: [],
   },
 
   getters: {
@@ -89,7 +91,7 @@ export default new Vuex.Store({
           console.log('signUp err:' ,err);
         });
     },
-    login(context, payload) {
+    async login(context, payload) {
       const username = payload.username;
       const password = payload.password;
 
@@ -112,6 +114,7 @@ export default new Vuex.Store({
             alert('아이디 혹은 비밀번호가 잘못되었습니다.');
           }
         });
+
     },
     logout(context) {
       axios

@@ -15,15 +15,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in items" :key="item.id">
-            <td>{{ item.column1 }}</td>
-            <td>{{ item.column2 }}</td>
-            <td>{{ item.column3 }}</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-            <!-- ... -->
+          <tr v-for="product in filteredData" :key="product.id">
+            <td>{{ product?.dcls_month }}</td>
+            <td>{{ product?.kor_co_nm }}</td>
+            <td>
+              <b-button @click="viewDetail(product.fin_prdt_cd)" variant='info'>{{ product?.fin_prdt_nm }}</b-button>
+            </td>
+						<td>{{ isDeposit ? product?.depositoptions_set[0]?.intr_rate : product?.savingoptions_set[0]?.intr_rate }}</td>
+						<td>{{ isDeposit ? product?.depositoptions_set[1]?.intr_rate : product?.savingoptions_set[1]?.intr_rate }}</td>
+						<td>{{ isDeposit ? product?.depositoptions_set[2]?.intr_rate : product?.savingoptions_set[2]?.intr_rate }}</td>
+						<td>{{ isDeposit ? product?.depositoptions_set[3]?.intr_rate : product?.savingoptions_set[3]?.intr_rate }}</td>
           </tr>
         </tbody>
       </table>
@@ -34,35 +35,37 @@
 <script>
 export default {
   name: 'ProductsTable',
-  data() {
-    return {
-      items: [
-        { id: 1, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 2, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 3, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 4, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 5, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 6, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 7, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 8, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 9, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 10, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 11, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 12, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 13, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 14, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-				{ id: 15, column1: 'Value 1', column2: 'Value 2', column3: 'Value 3' },
-        { id: 16, column1: 'Value 4', column2: 'Value 5', column3: 'Value 6' },
-        // ...
-      ],
-    };
+
+  props: {
+    isDeposit: Boolean,
+    productData: Array,
+    bankFilter: String,
   },
+
+  computed: {
+    filteredData() {
+      if (this.bankFilter.length < 3) {
+        return this.productData
+      } else {
+        return this.productData.filter((prod) => {
+          return prod.kor_co_nm === this.bankFilter
+        })
+      }
+
+    }
+  },
+
+  methods: {
+    viewDetail(fin_prdt_cd) {
+      this.$emit('onProductSelected', fin_prdt_cd);
+    }
+  }
 };
 </script>
 
 <style scoped>
 .table-container {
-	width: 1000px;
+	width: 800px;
   height: 500px; /* 스크롤 박스의 높이 조정 */
 }
 
@@ -72,7 +75,7 @@ export default {
 }
 
 table {
-  width: 1400px;
+  width: 1200px;
 	height: 500px;
   border-collapse: collapse;
 }
