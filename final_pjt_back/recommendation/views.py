@@ -89,13 +89,27 @@ def balance(request):
                 deposit_data3 = deposit_data2.filter(depositoptions__save_trm__gte=24)
                 serializer = DepositProductsSerializer(deposit_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break  
             else:
                 # 가입 기간이 2년 미만인 경우
                 deposit_data3 = deposit_data2.filter(depositoptions__save_trm__lte=24)
                 serializer = DepositProductsSerializer(deposit_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break  
                 
         else:
             deposit_data2 = deposit_data1.filter(join_way__icontains='스마트폰') | deposit_data1.filter(join_way__icontains='인터넷')
@@ -105,13 +119,27 @@ def balance(request):
                 deposit_data3 = deposit_data2.filter(depositoptions__save_trm__gte=24)
                 serializer = DepositProductsSerializer(deposit_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+    
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break   
             else:
                 # 가입 기간이 2년 미만인 경우
                 deposit_data3 = deposit_data2.filter(depositoptions__save_trm__lte=24)
                 serializer = DepositProductsSerializer(deposit_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break  
     else:
         # 목돈이 없다면 -> 적금
         saving_data1 = SavingProducts.objects.all()
@@ -124,13 +152,25 @@ def balance(request):
                 saving_data3 = saving_data2.filter(savingoptions__save_trm__gte=24)
                 serializer = SavingProductsSerializer(saving_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break
             else:
                 # 가입 기간이 2년 미만인 경우
                 saving_data3 = saving_data2.filter(savingoptions__save_trm__lte=24)
                 serializer = SavingProductsSerializer(saving_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break
                 
         else:
             saving_data2 = saving_data1.filter(join_way__icontains='스마트폰') | saving_data1.filter(join_way__icontains='인터넷')
@@ -140,13 +180,31 @@ def balance(request):
                 saving_data3 = saving_data2.filter(savingoptions__save_trm__gte=24)
                 serializer = SavingProductsSerializer(saving_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break
             else:
                 # 가입 기간이 2년 미만인 경우
                 saving_data3 = saving_data2.filter(savingoptions__save_trm__lte=24)
                 serializer = SavingProductsSerializer(saving_data3, many=True)
                 recommend_prd = serializer.data
-                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                sort_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)
+                top_5_prd = []
+                for prd in sort_prd:
+                    if prd not in top_5_prd:
+                        top_5_prd.append(prd)
+                    if len(top_5_prd) == 5:
+                        break
+                print(top_5_prd)
+                
+
+
+
+
 
      
     # top_5_prd = recommend_prd[:5]    
