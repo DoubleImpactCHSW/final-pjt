@@ -1,39 +1,49 @@
 <template>
-  <div>
-    <label for="country">국가 선택:</label>
-    <select
-      id="country"
-      v-model="selectedCountry"
-      @change="calculateExchangeRate"
-    >
-      <option
-        v-for="country in rateInfo"
-        :key="country.cur_unit"
-        :value="country.cur_nm"
-      >
-        {{ country.cur_nm }}
-      </option>
-    </select>
+  <div class="container">
+    <b-row>
+      <b-col>
+        <label for="country" class="label">국가 선택</label>
+        <b-form-select
+          id="country"
+          v-model="selectedCountry"
+          @change="calculateExchangeRate"
+        >
+          <option
+            v-for="country in rateInfo"
+            :key="country.cur_unit"
+            :value="country.cur_nm"
+          >
+            {{ country.cur_nm }}
+          </option>
+        </b-form-select>
+      </b-col>
+    </b-row>
 
-    <br />
+    <b-row class="mt-3">
+      <b-col>
+        <label for="foreign" class="label">{{ selectedCountry }}</label>
+        <b-form-input
+          id="foreign"
+          type="number"
+          v-model="foreignValue"
+          @input="calculateExchangeRate"
+          class="input"
+        ></b-form-input>
+      </b-col>
+    </b-row>
 
-    <label for="foreign">{{ selectedCountry }}</label>
-    <input
-      id="foreign"
-      type="number"
-      v-model="foreignValue"
-      @input="calculateExchangeRate"
-    />
-
-    <br />
-
-    <label for="korea">원화 가치</label>
-    <input
-      id="korea"
-      type="number"
-      v-model="wonValue"
-      @input="calculateExchangeRateReverse"
-    />
+    <b-row class="mt-3">
+      <b-col>
+        <label for="korea" class="label">원화 가치</label>
+        <b-form-input
+          id="korea"
+          type="number"
+          v-model="wonValue"
+          @input="calculateExchangeRateReverse"
+          class="input"
+        ></b-form-input>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -394,4 +404,37 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  background-color: #ffd700;
+  border: 1px solid #d6e9e7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 60px;
+}
+
+.label {
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 24px;
+}
+
+.mt-3 {
+  margin-top: 20px;
+}
+
+.input {
+  font-size: 24px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 8px rgba(128, 189, 255, 0.25);
+}
+</style>

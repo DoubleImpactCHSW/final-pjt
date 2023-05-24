@@ -1,57 +1,83 @@
 <template>
   <div>
     <h1>상품 조회 View</h1>
-    <span @click="depositOn">정기예금</span> |
-    <span @click="savingsOn">정기적금</span>
-    <div class="d-flex justify-content-around">
-      <div>
-        <h5>은행을 선택하세요.</h5>
-        <select v-model="bank" name="bank" id="">
-          <option value="우리은행">우리은행</option>
-          <option value="한국스탠다드차타드은행">한국스탠다드차타드은행</option>
-          <option value="대구은행">대구은행</option>
-          <option value="부산은행">부산은행</option>
-          <option value="광주은행">광주은행</option>
-          <option value="제주은행">제주은행</option>
-          <option value="전북은행">전북은행</option>
-          <option value="경남은행">경남은행</option>
-          <option value="중소기업은행">중소기업은행</option>
-          <option value="한국산업은행">한국산업은행</option>
-          <option value="국민은행">국민은행</option>
-          <option value="신한은행">신한은행</option>
-          <option value="농협은행주식회사">농협은행주식회사</option>
-          <option value="하나은행">하나은행</option>
-          <option value="주식회사 케이뱅크">주식회사 케이뱅크</option>
-          <option value="수협은행">수협은행</option>
-          <option value="주식회사 카카오뱅크">주식회사 카카오뱅크</option>
-          <option value="토스뱅크 주식회사">토스뱅크 주식회사</option>
-        </select>
+      <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center align-items-center" style="margin: 20px;">
+          <div class="my-3">
+            <h5>은행을 선택하세요.</h5>
+            <select v-model="bank" name="bank" id="">
+              <option value="전체">전체</option>
+              <option v-for="bankname in depositBankList" :key="bankname" :value="bankname">{{ bankname }}</option>
+            </select>
+          </div>
+          <div class="my-3">
+            <b-button @click="depositOn" variant="primary">정기예금</b-button>
+            <b-button @click="savingsOn" variant="primary">정기적금</b-button>
+          </div>  
+          <div class="my-3">
+            <ProductsTable @onProductSelected="handleSelected" :is-deposit="true" :bank-filter="selectedBank" :product-data="depositData" v-if="showDeposit"/>
+            <ProductsTable @onProductSelected="handleSelected" :is-deposit="false" :bank-filter="selectedBank" :product-data="savingsData" v-else/>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h3>상품 상세 정보</h3>
+          <ProductDetail :detail-data="selectedDetailData"/>
+        </div>
       </div>
-      <div>
-        <ProductsTable v-if="showDeposit"/>
-        <ProductsTable v-else/>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import ProductsTable from '@/components/products/ProductsTable'
+import ProductDetail from '@/components/products/ProductDetail'
+
 export default {
   name: 'ProductView',
 
   components: {
     ProductsTable,
+    ProductDetail,
   },
 
   data() {
     return {
       showDeposit: true,
-      bank: null,
+      bank: '',
+      depositData: this.$store.state.depositProductsData,
+      savingsData: this.$store.state.savingsProductsData,
+      selectedDetail: null,
     };
   },
 
-  mounted() {},
+  computed: {
+    selectedBank() {
+      return this.bank
+    },
+    depositBankList() {
+      const li = this.depositData.map((dep) => {
+        return dep.kor_co_nm
+      })
+      return [...new Set(li)];
+    },
+    savingsBankList() {
+      const li = this.savingsData.map((dep) => {
+        return dep.kor_co_nm
+      })
+      return [...new Set(li)];
+    },
+    selectedDetailData() {
+      if (this.showDeposit) {
+        return this.depositData.find((dep) => {
+          return dep.fin_prdt_cd === this.selectedDetail
+          })
+      } else {
+        return this.savingsData.find((dep) => {
+          return dep.fin_prdt_cd === this.selectedDetail
+          })
+      }
+    }
+  },
+
 
   methods: {
     depositOn() {
@@ -59,9 +85,14 @@ export default {
     },
     savingsOn() {
       this.showDeposit = false
+    },
+    handleSelected(payload) {
+      this.selectedDetail = payload
     } 
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
