@@ -1,6 +1,5 @@
 <template>
   <div class="d-flex flex-column align-items-center">
-    <h1>마이페이지 View</h1>
     <UserInfo />
 
   </div>

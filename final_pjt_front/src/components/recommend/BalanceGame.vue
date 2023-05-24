@@ -49,7 +49,7 @@ export default {
             ],
             round: 0,
             showRoundText: true,
-            choice: [0, 0, 0],
+            choice: [1, 1, 1],
         };
     },
 
@@ -77,7 +77,7 @@ export default {
           }, 3000);
         },
         selectRight() {
-          this.choice[this.round] = 1
+          this.choice[this.round] = 0
           this.round = this.round + 1
           this.showRoundText = true
           setTimeout(() => {

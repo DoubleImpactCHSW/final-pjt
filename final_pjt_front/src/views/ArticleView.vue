@@ -111,4 +111,12 @@ export default {
   margin: 0 5px;
 }
 
+.article-list {
+  padding: 30px;
+  border-radius: 40px;
+  background-color: aliceblue;
+  height: 580px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
 </style>
