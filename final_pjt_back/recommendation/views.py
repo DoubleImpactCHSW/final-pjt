@@ -3,12 +3,13 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 import numpy as np
 from accounts.models import User
-from products.models import DepositProducts
+from products.models import DepositProducts, SavingProducts
 from django.contrib.auth.decorators import login_required
 from scipy.stats import pearsonr
 from collections import Counter
 from django.http import HttpResponse
-
+from rest_framework.decorators import api_view
+from products.serializers import DepositProductsSerializer, SavingProductsSerializer
 # Create your views here.
 def get_similar_users(user_data, current_user_data, top_n):
     correlations = []
@@ -23,6 +24,7 @@ def get_similar_users(user_data, current_user_data, top_n):
     return similar_users_indices
 
 @login_required
+@api_view(['GET'])
 def recommend(request):
     current_user = request.user
     profile = current_user.profile
@@ -68,6 +70,85 @@ def recommend(request):
     return JsonResponse({"recommend_prd": recommend_prd})
 
 
+
+@api_view(['GET'])
 def balance(request):
-    
-    return JsonResponse({'message' : 'okay'})
+    # recommend_prd = []
+    balance_game_results = request.data
+    # print(balance_game_results)
+    # 밸런스 게임 단계 1: 목돈의 보유 여부
+    if balance_game_results.get('money') == '1':
+        # 목돈이 있으면 예금
+        deposit_data1 = DepositProducts.objects.all()
+        # 밸런스 게임 단계 2: 가입 방법
+        if balance_game_results.get('join_preference') == '1':
+            deposit_data2 = deposit_data1.filter(join_way__icontains='영업점')
+            # 밸런스 게임 단계 3: 가입 기간
+            if balance_game_results.get('membership_duration')== '1':
+                # 가입 기간이 2년 이상인 경우
+                deposit_data3 = deposit_data2.filter(depositoptions__save_trm__gte=24)
+                serializer = DepositProductsSerializer(deposit_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+            else:
+                # 가입 기간이 2년 미만인 경우
+                deposit_data3 = deposit_data2.filter(depositoptions__save_trm__lte=24)
+                serializer = DepositProductsSerializer(deposit_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                
+        else:
+            deposit_data2 = deposit_data1.filter(join_way__icontains='스마트폰') | deposit_data1.filter(join_way__icontains='인터넷')
+            # 밸런스 게임 단계 3: 가입 기간
+            if balance_game_results.get('membership_duration') == '1':
+                # 가입 기간이 2년 이상인 경우
+                deposit_data3 = deposit_data2.filter(depositoptions__save_trm__gte=24)
+                serializer = DepositProductsSerializer(deposit_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+            else:
+                # 가입 기간이 2년 미만인 경우
+                deposit_data3 = deposit_data2.filter(depositoptions__save_trm__lte=24)
+                serializer = DepositProductsSerializer(deposit_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["depositoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+    else:
+        # 목돈이 없다면 -> 적금
+        saving_data1 = SavingProducts.objects.all()
+        # 밸런스 게임 단계 2: 가입 방법
+        if balance_game_results.get('join_preference') == '1':
+            saving_data2 = saving_data1.filter(join_way__icontains='영업점')
+            # 밸런스 게임 단계 3: 가입 기간
+            if balance_game_results.get('membership_duration') == '1':
+                # 가입 기간이 2년 이상인 경우
+                saving_data3 = saving_data2.filter(savingoptions__save_trm__gte=24)
+                serializer = SavingProductsSerializer(saving_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+            else:
+                # 가입 기간이 2년 미만인 경우
+                saving_data3 = saving_data2.filter(savingoptions__save_trm__lte=24)
+                serializer = SavingProductsSerializer(saving_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+                
+        else:
+            saving_data2 = saving_data1.filter(join_way__icontains='스마트폰') | saving_data1.filter(join_way__icontains='인터넷')
+            # 밸런스 게임 단계 3: 가입 기간
+            if balance_game_results.get('membership_duration') == '1':
+                # 가입 기간이 2년 이상인 경우
+                saving_data3 = saving_data2.filter(savingoptions__save_trm__gte=24)
+                serializer = SavingProductsSerializer(saving_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+            else:
+                # 가입 기간이 2년 미만인 경우
+                saving_data3 = saving_data2.filter(savingoptions__save_trm__lte=24)
+                serializer = SavingProductsSerializer(saving_data3, many=True)
+                recommend_prd = serializer.data
+                top_5_prd = sorted(recommend_prd, key=lambda prd: max(prd["savingoptions_set"], key=lambda opt: opt["intr_rate"])["intr_rate"], reverse=True)[:5]   
+
+     
+    # top_5_prd = recommend_prd[:5]    
+    # print(len(recommend_prd))
+    return JsonResponse({'top_5_prd' : top_5_prd})

@@ -74,7 +74,7 @@ with open(save_dir, 'w', encoding="utf-8") as f:
             'username': username_list[i],  # 유저 이름 랜덤 생성
             'financial_products': ','.join([random.choice(financial_products) for _ in range(random.randint(0, 5))]), # 금융 상품 리스트
             'age': random.randint(1, 100),  # 나이
-            'money': random.randrange(0, 100000000, 100000),    # 현재 가진 금액
+            'money': random.randrange(0, 100000000, 100000),   # 현재 가진 금액
             'salary': random.randrange(0, 1500000000, 1000000), # 연봉
             'password': "1234",
             'nickname': None,
