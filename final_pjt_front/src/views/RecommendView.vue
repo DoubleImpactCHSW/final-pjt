@@ -1,14 +1,13 @@
 <template>
   <div>
     <BasicRecommendation />
-    <hr>
     <BalanceGame />
   </div>
 </template>
 
 <script>
-import BalanceGame from '@/components/recommend/BalanceGame'
-import BasicRecommendation from '@/components/recommend/BasicRecommendation'
+import BalanceGame from '@/components/recommend/BalanceGame';
+import BasicRecommendation from '@/components/recommend/BasicRecommendation';
 
 export default {
   name: 'RecommendView',
@@ -58,7 +57,7 @@ export default {
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 30px #FF0000, 0 0 60px #FF3333, 0 0 90px #FF3333;
+    text-shadow: 0 0 30px #ff0000, 0 0 60px #ff3333, 0 0 90px #ff3333;
   }
   100% {
     opacity: 0.8;

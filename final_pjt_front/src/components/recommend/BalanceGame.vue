@@ -1,90 +1,103 @@
 <template>
   <div>
-    <div v-if="!showRoundText">
-      <div class="question-box">
-        <span class="question-text">{{ question[currentRound] }}</span>
+    <div v-if="isGameOn">
+      <div v-if="!showRoundText">
+        <div class="question-box">
+          <span class="question-text">{{ question[currentRound] }}</span>
+        </div>
+        <span class="vs-text">VS</span>
+        <div class="d-flex justify-content-around">
+          <div @click="selectLeft">
+            <ChoiceCard color="#FF3333" :content="leftOption[currentRound]" />
+          </div>
+          <div @click="selectRight">
+            <ChoiceCard color="#0047AB" :content="rightOption[currentRound]" />
+          </div>
+        </div>
       </div>
-      <span class="vs-text">VS</span>
-      <div class="d-flex justify-content-around">
-        <div @click="selectLeft">
-          <ChoiceCard color="#FF3333" :content="leftOption[currentRound]" />
-        </div>
-        <div @click="selectRight">
-          <ChoiceCard color="#0047AB" :content="rightOption[currentRound]" />
-        </div>
+      <div v-if="showRoundText" class="round-text-container">
+        <div class="round-text">{{ roundText }}</div>
       </div>
     </div>
-    <div v-if="showRoundText" class="round-text-container">
-      <div class="round-text">{{ roundText }}</div>
+    <div v-else>
+      <GameResult :final-game-result="finalGameResult" />
     </div>
   </div>
 </template>
 
 <script>
-import ChoiceCard from '@/components/recommend/ChoiceCard'
+import ChoiceCard from '@/components/recommend/ChoiceCard';
+import GameResult from '@/components/recommend/GameResult';
 
 export default {
-    name: 'BalanceGame',
+  name: 'BalanceGame',
 
-    components: {
-        ChoiceCard,
+  components: {
+    ChoiceCard,
+    GameResult,
+  },
+
+  data() {
+    return {
+      question: ['나는 목돈이', '상품 가입 방법은?', '2년 이상 가입을'],
+      leftOption: ['있다.', '직접 방문', '할거야!'],
+      rightOption: ['없다.', '귀찮아~\n온라인으로!', '2년은 너무 길어~'],
+      round: 0,
+      showRoundText: true,
+      choice: [1, 1, 1],
+      gameOn: true,
+      gameResult: null,
+    };
+  },
+
+  computed: {
+    currentRound() {
+      return this.round;
     },
-
-    data() {
-        return {
-            question: [
-              '나는 목돈이',
-              '상품 가입 방법은?',
-              '2년 이상 가입을',
-            ],
-            leftOption: [
-              '있다.',
-              '직접 방문',
-              '할거야!',
-            ],
-            rightOption: [
-              '없다.',
-              '귀찮아~\n온라인으로!',
-              '2년은 너무 길어~',
-            ],
-            round: 0,
-            showRoundText: true,
-            choice: [1, 1, 1],
-        };
+    roundText() {
+      return 'Round ' + (this.round + 1);
     },
+    isGameOn() {
+      return this.gameOn;
+    },
+    finalGameResult() {
+      return this.gameResult;
+    },
+  },
 
-    computed: {
-      currentRound() {
-        return this.round
-      },
-      roundText() {
-        return 'Round ' + (this.round + 1)
+  mounted() {
+    setTimeout(() => {
+      this.showRoundText = false;
+    }, 3000);
+  },
+
+  methods: {
+    async selectLeft() {
+      this.round = this.round + 1;
+      if (this.round === 3) {
+        this.gameOn = false;
+        const result = await this.$store.dispatch('getGameResult', this.choice);
+        this.gameResult = result;
       }
-    },
-
-    mounted() {
+      this.showRoundText = true;
       setTimeout(() => {
         this.showRoundText = false;
       }, 3000);
     },
-
-    methods: {
-        selectLeft() {
-          this.round = this.round + 1
-          this.showRoundText = true
-          setTimeout(() => {
-            this.showRoundText = false;
-          }, 3000);
-        },
-        selectRight() {
-          this.choice[this.round] = 0
-          this.round = this.round + 1
-          this.showRoundText = true
-          setTimeout(() => {
-            this.showRoundText = false;
-          }, 3000);
-        },
+    async selectRight() {
+      this.choice[this.round] = 0;
+      this.round = this.round + 1;
+      if (this.round === 3) {
+        this.gameOn = false;
+        const result = await this.$store.dispatch('getGameResult', this.choice);
+        this.gameResult = result;
+      }
+      this.showRoundText = true;
+      setTimeout(() => {
+        this.showRoundText = false;
+      }, 3000);
     },
+  },
 };
 </script>
 

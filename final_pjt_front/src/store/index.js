@@ -235,6 +235,27 @@ export default new Vuex.Store({
           console.log('getCommentsErr', err);
         });
     },
+    getGameResult(context, result) {
+      const formData = new FormData();
+      formData.append('money', result[0].toString());
+      formData.append('join_preference', result[1].toString());
+      formData.append('membership_duration', result[2].toString());
+
+      axios
+        .get(`${API_URL}/recommendation/balance/`, formData, {
+          headers: {
+            Authorization: `Token ${context.state.token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          return res.data.top_5_prd;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 
   modules: {},
