@@ -3,5 +3,6 @@ from . import views
 
 app_name="recommendation"
 urlpatterns = [
-  path('', views.recommend)
+  path('', views.recommend),
+  path('balance/', views.balance),
 ]
