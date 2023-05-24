@@ -3,23 +3,37 @@
     <h2>상품 후기</h2>
     <p>token: {{ token }}</p>
     <hr />
-    <b-button class="mb-3" v-if="mode !== 'post'" @click="goPost" variant="primary"
-      >후기 작성하러 가기</b-button>
+    <b-button
+      class="mb-3"
+      v-if="mode !== 'post'"
+      @click="goPost"
+      variant="primary"
+      >후기 작성하러 가기</b-button
+    >
     <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
-      <div class="article-list">
-        <ArticleItem
-          v-for="article in paginatedArticles"
-          :key="article.id"
-          :id="article.id"
-          :writer="article.username"
-          :title="article.title"
-          :content="article.content"
-        />
+      <div v-if="noArticles">
+        <h3>아직 후기가 없어요.</h3>
       </div>
-      <div class="pagination-controls">
-        <button @click="previousPage" :disabled="currentPage === 1">이전</button>
-        <span>{{ currentPage }} / {{ totalPages }}</span>
-        <button @click="nextPage" :disabled="currentPage === totalPages">다음</button>
+      <div v-else>
+        <div class="article-list">
+          <ArticleItem
+            v-for="article in paginatedArticles"
+            :key="article.id"
+            :id="article.id"
+            :writer="article.username"
+            :title="article.title"
+            :content="article.content"
+          />
+        </div>
+        <div class="pagination-controls">
+          <button @click="previousPage" :disabled="currentPage === 1">
+            이전
+          </button>
+          <span>{{ currentPage }} / {{ totalPages }}</span>
+          <button @click="nextPage" :disabled="currentPage === totalPages">
+            다음
+          </button>
+        </div>
       </div>
     </div>
     <div v-if="mode === 'post'">
@@ -74,6 +88,9 @@ export default {
       const startIndex = (this.currentPage - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
       return this.articles.slice(startIndex, endIndex);
+    },
+    noArticles() {
+      return !this.paginatedArticles?.length;
     },
   },
 
