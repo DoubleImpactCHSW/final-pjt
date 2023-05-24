@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>추천 게임 view</h1>
     <BasicRecommendation />
     <hr>
     <BalanceGame />

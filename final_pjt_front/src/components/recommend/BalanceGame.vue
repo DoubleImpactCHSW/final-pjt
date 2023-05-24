@@ -1,12 +1,23 @@
 <template>
-    <div>
-        <p>당신의 선택은?</p>
-        <span class="vs-text">VS</span>
-        <div class="d-flex justify-content-around">
-        <ChoiceCard />
-        <ChoiceCard />
+  <div>
+    <div v-if="!showRoundText">
+      <div class="question-box">
+        <span class="question-text">{{ question[currentRound] }}</span>
+      </div>
+      <span class="vs-text">VS</span>
+      <div class="d-flex justify-content-around">
+        <div @click="selectLeft">
+          <ChoiceCard color="#FF3333" :content="leftOption[currentRound]" />
         </div>
+        <div @click="selectRight">
+          <ChoiceCard color="#0047AB" :content="rightOption[currentRound]" />
+        </div>
+      </div>
     </div>
+    <div v-if="showRoundText" class="round-text-container">
+      <div class="round-text">{{ roundText }}</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,28 +32,76 @@ export default {
 
     data() {
         return {
-            
+            question: [
+              '나는 목돈이',
+              '상품 가입 방법은?',
+              '2년 이상 가입을',
+            ],
+            leftOption: [
+              '있다.',
+              '직접 방문',
+              '할거야!',
+            ],
+            rightOption: [
+              '없다.',
+              '귀찮아~\n온라인으로!',
+              '2년은 너무 길어~',
+            ],
+            round: 0,
+            showRoundText: true,
+            choice: [0, 0, 0],
         };
     },
 
+    computed: {
+      currentRound() {
+        return this.round
+      },
+      roundText() {
+        return 'Round ' + (this.round + 1)
+      }
+    },
+
     mounted() {
-        
+      setTimeout(() => {
+        this.showRoundText = false;
+      }, 3000);
     },
 
     methods: {
-        
+        selectLeft() {
+          this.round = this.round + 1
+          this.showRoundText = true
+          setTimeout(() => {
+            this.showRoundText = false;
+          }, 3000);
+        },
+        selectRight() {
+          this.choice[this.round] = 1
+          this.round = this.round + 1
+          this.showRoundText = true
+          setTimeout(() => {
+            this.showRoundText = false;
+          }, 3000);
+        },
     },
 };
 </script>
 
 <style scoped>
-.campfire {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  background-color: black;
-  border-radius: 50%;
-  overflow: hidden;
+.question-box {
+  text-align: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  max-width: 500px;
+  margin: 50px auto;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.question-text {
+  font-size: 32px;
+  font-weight: bold;
 }
 
 .vs-text {
@@ -58,6 +117,34 @@ export default {
   animation: burn-in-flames 2s infinite;
 }
 
+.round-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.round-text {
+  font-size: 64px;
+  font-weight: bold;
+  animation: fade-in-out 3s;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes burn-in-flames {
   0% {
     opacity: 0.8;
@@ -65,11 +152,11 @@ export default {
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 30px #FF0000, 0 0 60px #FF3333, 0 0 90px #FF3333;
+    text-shadow: 0 0 30px #ff0000, 0 0 60px #ff3333, 0 0 90px #ff3333;
   }
   100% {
     opacity: 0.8;
-    text-shadow: 0 0 30px black, 0 0 60px black, 0 0 90px black;
+    text-shadow: 0 0 30px #0047ab, 0 0 60px #0047ab, 0 0 90px #0047ab;
   }
 }
 </style>

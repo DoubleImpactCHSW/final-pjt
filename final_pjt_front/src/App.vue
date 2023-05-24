@@ -20,7 +20,7 @@
               <router-link to="/article" class="nav-link">커뮤니티</router-link>
             </li>
             <li>
-              <router-link to="/recommend" class="nav-link">상품 추천</router-link>
+              <router-link to="/recommend" class="nav-link">예적금 밸런스 게임</router-link>
             </li>
           </ul>
         </div>

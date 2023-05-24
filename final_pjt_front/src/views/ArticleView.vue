@@ -6,14 +6,21 @@
     <b-button class="mb-3" v-if="mode !== 'post'" @click="goPost" variant="primary"
       >후기 작성하러 가기</b-button>
     <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
-      <ArticleItem
-        v-for="article in articles"
-        :key="article.id"
-        :id="article.id"
-        :writer="article.username"
-        :title="article.title"
-        :content="article.content"
-      />
+      <div class="article-list">
+        <ArticleItem
+          v-for="article in paginatedArticles"
+          :key="article.id"
+          :id="article.id"
+          :writer="article.username"
+          :title="article.title"
+          :content="article.content"
+        />
+      </div>
+      <div class="pagination-controls">
+        <button @click="previousPage" :disabled="currentPage === 1">이전</button>
+        <span>{{ currentPage }} / {{ totalPages }}</span>
+        <button @click="nextPage" :disabled="currentPage === totalPages">다음</button>
+      </div>
     </div>
     <div v-if="mode === 'post'">
       <ArticleForm />
@@ -44,7 +51,10 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      itemsPerPage: 4, // Number of items to display per page
+      currentPage: 1, // Current page number
+    };
   },
 
   computed: {
@@ -57,6 +67,14 @@ export default {
     articles() {
       return this.$store.state.articles;
     },
+    totalPages() {
+      return Math.ceil(this.articles.length / this.itemsPerPage);
+    },
+    paginatedArticles() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.articles.slice(startIndex, endIndex);
+    },
   },
 
   created() {
@@ -67,8 +85,30 @@ export default {
     goPost() {
       this.$store.dispatch('changeCommunityMode', 'post');
     },
+    previousPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pagination-controls button {
+  margin: 0 5px;
+}
+
+</style>

@@ -21,10 +21,13 @@ export default {
 
 <style scoped>
 .exchange-view {
-  height: 85vh;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url('@/assets/background/ship.gif');
+  background-size: cover;
+  background-position: center;
 }
 
 .content {

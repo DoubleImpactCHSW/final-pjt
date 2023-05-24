@@ -55,7 +55,7 @@ export default {
 
 <style scoped>
 .item {
-  width: 50%;
+  width: 700px;
   border: solid 1px #ddd;
   border-radius: 10px;
   padding: 10px;

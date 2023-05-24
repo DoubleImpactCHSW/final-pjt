@@ -1,27 +1,27 @@
 <template>
     <div>
       <div class="m-4 d-flex justify-content-between">
-        <div>공식 제출 월</div>
+        <div class="font-weight-bold">공식 제출 월</div>
         <div class="content">{{ detailData?.dcls_month }}</div>
       </div>
       <div class="m-4 d-flex justify-content-between">
-        <div>금융회사명</div>
+        <div class="font-weight-bold">금융회사명</div>
         <div class="content">{{ detailData?.kor_co_nm }}</div>
       </div>
       <div class="m-4 d-flex justify-content-between">
-        <div>상품명</div>
+        <div class="font-weight-bold">상품명</div>
         <div class="content">{{ detailData?.fin_prdt_nm }}</div>
       </div>
       <div class="m-4 d-flex justify-content-between">
-        <div>가입제한</div>
+        <div class="font-weight-bold">가입제한</div>
         <div class="content">{{ detailData?.join_deny }}</div>
       </div>
       <div class="m-4 d-flex justify-content-between">
-        <div>가입 방법</div>
+        <div class="font-weight-bold">가입 방법</div>
         <div class="content">{{ detailData?.join_way }}</div>
       </div>
       <div class="m-4 d-flex justify-content-between">
-        <div>부가 정보</div>
+        <div class="font-weight-bold">부가 정보</div>
         <div class="content">{{ detailData?.etc_note }}</div>
       </div>
 
@@ -69,6 +69,5 @@ export default {
 <style scoped>
 .content {
   width: 200px;
-  background-color: chocolate;
 }
 </style>
