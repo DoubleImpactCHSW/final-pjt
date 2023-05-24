@@ -67,7 +67,8 @@ export default {
 .table-container {
 	width: 800px;
   height: 500px; /* 스크롤 박스의 높이 조정 */
-
+  margin-top: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .scroll-box {

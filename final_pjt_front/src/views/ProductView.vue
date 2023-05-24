@@ -1,29 +1,29 @@
 <template>
-  <div>
-    <h1>상품 조회 View</h1>
-      <div class="d-flex justify-content-center">
-        <div class="d-flex flex-column justify-content-center align-items-center" style="margin: 20px;">
-          <div class="my-3">
+  <div class="top-box">
+    <div class="body d-flex justify-content-center">
+      <div class="left-section d-flex flex-column justify-content-center align-items-center">
+        <div class="header">
+          <div class="header-box my-3">
             <h5>은행을 선택하세요.</h5>
-            <select v-model="bank" name="bank" id="">
+            <select v-model="bank" name="bank">
               <option value="전체">전체</option>
               <option v-for="bankname in depositBankList" :key="bankname" :value="bankname">{{ bankname }}</option>
             </select>
           </div>
           <div class="my-3">
-            <b-button @click="depositOn" variant="primary">정기예금</b-button>
-            <b-button @click="savingsOn" variant="primary">정기적금</b-button>
+            <b-button @click="depositOn" variant="primary" class="btn-custom">정기예금</b-button>
+            <b-button @click="savingsOn" variant="primary" class="btn-custom">정기적금</b-button>
           </div>  
-          <div class="my-3">
-            <ProductsTable @onProductSelected="handleSelected" :is-deposit="true" :bank-filter="selectedBank" :product-data="depositData" v-if="showDeposit"/>
-            <ProductsTable @onProductSelected="handleSelected" :is-deposit="false" :bank-filter="selectedBank" :product-data="savingsData" v-else/>
-          </div>
         </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <h3>상품 상세 정보</h3>
-          <ProductDetail :detail-data="selectedDetailData"/>
+        <div class="my-3">
+          <ProductsTable @onProductSelected="handleSelected" :is-deposit="true" :bank-filter="selectedBank" :product-data="depositData" v-if="showDeposit"/>
+          <ProductsTable @onProductSelected="handleSelected" :is-deposit="false" :bank-filter="selectedBank" :product-data="savingsData" v-else/>
         </div>
       </div>
+      <div class="right-section d-flex flex-column justify-content-center align-items-center">
+        <ProductDetail :detail-data="selectedDetailData"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,5 +94,65 @@ export default {
 </script>
 
 <style scoped>
+.top-box {
+  padding-top: 80px;
+}
 
+.left-section {
+  margin-right: 70px;
+}
+
+.right-section {
+  margin-left: 70px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.header-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 575px;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: header-animation 0.3s;
+}
+
+@keyframes header-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.btn-custom {
+  margin: 0 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+}
+
+.btn-custom:focus {
+  box-shadow: none;
+  outline: none;
+}
 </style>
