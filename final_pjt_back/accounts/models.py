@@ -8,7 +8,7 @@ class User(AbstractUser):
     age = models.IntegerField(blank=True, null=True)
     money = models.IntegerField(blank=True, null=True, default=0)
     salary = models.IntegerField(blank=True, null=True, default=0)
-
+    
     
 # 상속 받아서 구현해보기
 from allauth.account.adapter import DefaultAccountAdapter

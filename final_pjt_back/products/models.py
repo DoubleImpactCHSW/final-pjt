@@ -27,16 +27,17 @@ class DepositOptions(models.Model):
 
 
 class SavingProducts(models.Model):
-    dcls_month = models.IntegerField()
-    fin_prdt_cd = models.TextField(unique=True)
-    kor_co_nm = models.TextField()
-    fin_prdt_nm = models.TextField()
-    etc_note = models.TextField()
-    join_deny = models.IntegerField()
-    join_member = models.TextField()
-    join_way = models.TextField()
-    spcl_cnd = models.TextField()
-    join_deny = models.TextField()
+    dcls_month = models.IntegerField()  # 공시 제출월
+    fin_prdt_cd = models.TextField(unique=True) # 금융상품 코드
+    kor_co_nm = models.TextField()  # 금융 회사 명
+    fin_prdt_nm = models.TextField()    # 금융상품명
+    etc_note = models.TextField()   # 기타 유의사항
+    # 가입 제한(1:제한 없음, 2:서민전용, 3:일부제한)
+    join_deny = models.IntegerField()   
+    join_member = models.TextField()  # 가입 대상
+    join_way = models.TextField()   # 가입 방법
+    spcl_cnd = models.TextField()   # 우대 조건
+    join_deny = models.TextField()  # 가입 제한
 
 class SavingOptions(models.Model):
     fin_prdt_cd = models.ForeignKey(SavingProducts, on_delete=models.CASCADE)
