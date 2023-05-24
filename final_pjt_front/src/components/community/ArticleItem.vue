@@ -1,8 +1,10 @@
 <template>
-  <div class="item p-3 m-3" rounded>
-    <p>작성자 {{ writer }}</p>
-    <p @click="goDetail">{{ title }}</p>
-    <b-button v-if="isMine" @click="deleteArticle" variant="danger">삭제</b-button>
+  <div class="item p-3 m-3 rounded" style="background-color: #f8f8f8;">
+    <div class="d-flex justify-content-between align-items-center">
+      <p class="mb-0">{{ writer }}</p>
+      <b-button v-if="isMine" @click="deleteArticle" variant="danger" size="sm">삭제</b-button>
+    </div>
+    <h4 class="mt-2 title" @click="goDetail">{{ title }}</h4>
   </div>
 </template>
 
@@ -54,7 +56,30 @@ export default {
 <style scoped>
 .item {
   width: 50%;
-  border: solid 3px grey;
+  border: solid 1px #ddd;
   border-radius: 10px;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.item:hover {
+  background-color: #f0f0f0;
+}
+
+.item p {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.item h4.title {
+  color: #333;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.item h4.title:hover {
+  color: #42b983;
 }
 </style>

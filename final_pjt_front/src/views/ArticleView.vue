@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h1>상품 후기 게시판</h1>
+    <h2>상품 후기</h2>
     <p>token: {{ token }}</p>
     <hr />
-    <b-button v-if="mode !== 'post'" @click="goPost" variant="primary"
-      >후기 작성하기</b-button
-    >
+    <b-button class="mb-3" v-if="mode !== 'post'" @click="goPost" variant="primary"
+      >후기 작성하러 가기</b-button>
     <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
       <ArticleItem
         v-for="article in articles"

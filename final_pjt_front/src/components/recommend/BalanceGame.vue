@@ -1,31 +1,37 @@
 <template>
-  <div>
-    <h1>추천 게임 view</h1>
-    <BasicRecommendation />
-    <hr>
-    <BalanceGame />
-  </div>
+    <div>
+        <p>당신의 선택은?</p>
+        <span class="vs-text">VS</span>
+        <div class="d-flex justify-content-around">
+        <ChoiceCard />
+        <ChoiceCard />
+        </div>
+    </div>
 </template>
 
 <script>
-import BalanceGame from '@/components/recommend/BalanceGame'
-import BasicRecommendation from '@/components/recommend/BasicRecommendation'
+import ChoiceCard from '@/components/recommend/ChoiceCard'
 
 export default {
-  name: 'RecommendView',
+    name: 'BalanceGame',
 
-  components: {
-    BalanceGame,
-    BasicRecommendation,
-  },
+    components: {
+        ChoiceCard,
+    },
 
-  data() {
-    return {};
-  },
+    data() {
+        return {
+            
+        };
+    },
 
-  mounted() {},
+    mounted() {
+        
+    },
 
-  methods: {},
+    methods: {
+        
+    },
 };
 </script>
 

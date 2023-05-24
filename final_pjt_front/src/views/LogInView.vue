@@ -1,33 +1,35 @@
 <template>
-  <div class="login-container">
-    <h1 class="login-title">Log In</h1>
-    <form @submit.prevent="login" class="login-form">
-      <div class="form-group">
-        <label for="username" class="form-label">Username</label>
-        <input
-          class="form-input"
-          type="text"
-          id="username"
-          v-model="username"
-        />
+  <div class="container">
+    <div class="login-container">
+      <h1 class="login-title">Log In</h1>
+      <form @submit.prevent="login" class="login-form">
+        <div class="form-group">
+          <label for="username" class="form-label">Username</label>
+          <input
+            class="form-input"
+            type="text"
+            id="username"
+            v-model="username"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            v-model="password"
+          />
+        </div>
+
+        <button type="submit" class="login-button">Log In</button>
+      </form>
+
+      <div class="signup-section">
+        <p>Not a member yet?</p>
+        <button @click="goSignUp" class="signup-button">Sign Up</button>
       </div>
-
-      <div class="form-group">
-        <label for="password" class="form-label">Password</label>
-        <input
-          class="form-input"
-          type="password"
-          id="password"
-          v-model="password"
-        />
-      </div>
-
-      <button type="submit" class="login-button">Log In</button>
-    </form>
-
-    <div class="signup-section">
-      <p>Not a member yet?</p>
-      <button @click="goSignUp" class="signup-button">Sign Up</button>
     </div>
   </div>
 </template>
@@ -72,6 +74,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  padding-top: 100px;
+}
+
 .login-container {
   max-width: 400px;
   margin: 0 auto;
