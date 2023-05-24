@@ -7,37 +7,41 @@ from products.models import DepositProducts
 from django.contrib.auth.decorators import login_required
 from scipy.stats import pearsonr
 from collections import Counter
+from django.http import HttpResponse
 
 # Create your views here.
-def get_similar_users(user_data, current_user_index, top_n):
+def get_similar_users(user_data, current_user_data, top_n):
     correlations = []
     for i, data in enumerate(user_data):
         # 현재 사용자와 다른 사용자들 간의 피어슨 상관계수 계산
-        correlation = pearsonr(user_data[current_user_index-1], data)[0]
+        correlation = pearsonr(current_user_data, data)[0]
         correlations.append((i, correlation))
 
     # 피어슨 상관계수가 가장 높은 사용자들의 인덱스를 가져옴 (자기 자신 제외)
-    similar_users_indices = [index for index, _ in sorted(correlations, key=lambda x: x[1], reverse=True)][0:top_n+1]
+    similar_users_indices = [index for index, _ in sorted(correlations, key=lambda x: x[1], reverse=True)][1:top_n+1]
     
     return similar_users_indices
 
 @login_required
 def recommend(request):
     current_user = request.user
-    age = current_user.profile.age
-    money = current_user.profile.money
-    salary = current_user.profile.salary
+    profile = current_user.profile
+    age = profile.age or 0
+    money = profile.money or 0
+    salary = profile.salary or 0
+    current_user_data = np.array([age, money, salary])
+    print(current_user_data)
     # 모든 사용자의 나이, 금액, 연봉 정보 가져오기
     users = User.objects.select_related('profile').all()
     # print(users)
-    user_data = np.array([[user.age, user.money, user.salary] for user in users])
+    user_data = np.array([[user.age or 0, user.money or 0, user.salary or 0] for user in users])
     # print(user_data)
     # 현재 사용자의 인덱스 찾기
     current_user_index = current_user.id
     # print(current_user_index)
 
     # 비슷한 사용자들 가져오기
-    similar_user_indices = get_similar_users(user_data, current_user_index, top_n=1000)
+    similar_user_indices = get_similar_users(user_data, current_user_data, top_n=1000)
     # print(similar_user_indices)
     # print(similar_users)
 
@@ -62,3 +66,8 @@ def recommend(request):
         print(f"상품 코드: {fin_prdt_cd}, 가입 수: {count}")
     
     return JsonResponse({"recommend_prd": recommend_prd})
+
+
+def balance(request):
+    
+    return JsonResponse({'message' : 'okay'})
