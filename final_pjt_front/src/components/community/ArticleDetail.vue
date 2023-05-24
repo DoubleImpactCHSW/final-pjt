@@ -1,9 +1,7 @@
 <template>
   <div>
-    <hr />
     <DetailContent :writer="writer" :title="title" :content="content" :created-at="created_at" />
-    <hr />
-    <p>댓글 수: {{ comment_count }}</p>
+    <p>댓글 <b>{{ comment_count }}</b></p>
     <CommentBox
       v-for="comment in commentsList"
       :key="comment.id"
@@ -13,10 +11,15 @@
       :content="comment.content"
       :created-at="comment.created_at"
     />
-    <div>
-      <input type="text" v-model="comment_input" />
-      <b-button @click="addComment" class="ml-3" variant="info">등록</b-button>
+    <div class="comment-input">
+      <div class="input-group">
+        <input type="text" class="form-control" v-model="comment_input" placeholder="댓글을 입력하세요" style="width: 300px;">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="button" @click="addComment">등록</button>
+        </div>
+      </div>
     </div>
+
     <hr />
     <b-button @click="goList">목록</b-button>
   </div>
@@ -44,7 +47,6 @@ export default {
       title: this.$store.state.articleDetail.title,
       content: this.$store.state.articleDetail.content,
       created_at: this.$store.state.articleDetail.created_at,
-      comment_count: this.$store.state.articleDetail.comment_count,
       // comment_set: this.$store.state.articleDetail.comment_set,
       comment_input: '',
     };
@@ -53,6 +55,9 @@ export default {
   computed: {
     commentsList() {
       return this.$store.state.commentsList;
+    },
+    comment_count() {
+      return this.$store.state.articleDetail.comment_count
     },
   },
 
@@ -78,6 +83,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.$store.dispatch('getComments', this.id);
+          this.comment_input = ''
         })
         .catch((err) => {
           console.log(err);
@@ -87,4 +93,52 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.comment-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  max-width: 700px;
+  margin: 0 auto; /* 가운데 정렬을 위해 margin 설정 */
+
+}
+
+.comment-input-field {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.comment-input-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.comment-input-field input:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.comment-input-button {
+  flex-shrink: 0;
+}
+
+.comment-input-button b-button {
+  transition: opacity 0.3s ease;
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+</style>

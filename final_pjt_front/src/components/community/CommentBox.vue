@@ -1,9 +1,13 @@
 <template>
-  <div class="box p-3">
-    <p>{{ writer }}</p>
-    <p>{{ createdAt }}</p>
-    <p>{{ content }}</p>
-    <b-button v-if="isMine" @click="deleteComment" variant="danger">삭제</b-button>
+  <div class="comment-container">
+    <div class="comment-info">
+      <span class="comment-writer">{{ writer }}</span>
+      <span class="comment-date">{{ newCreatedAt }}</span>
+    </div>
+    <div class="comment-content">{{ content }}</div>
+    <div class="comment-actions">
+      <b-button v-if="isMine" @click="deleteComment" variant="danger" class="delete-button">삭제</b-button>
+    </div>
   </div>
 </template>
 
@@ -28,6 +32,14 @@ export default {
   computed: {
     isMine() {
       return this.writer == this.$store.state.username
+    },
+    newCreatedAt() {
+      const date = new Date(this.createdAt);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+  
+      return `${year}.${month}.${day}`;
     }
   },
 
@@ -52,9 +64,45 @@ export default {
 </script>
 
 <style scoped>
-.box {
-  width: 50%;
-  border: solid 2px lightgreen;
-  border-radius: 20px;
+.comment-container {
+  display: flex;
+  align-items: center;
+  max-width: 800px; /* 원하는 최대 너비로 설정 */
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.comment-info {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.comment-writer {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.comment-date {
+  color: #666;
+}
+
+.comment-content {
+  margin-right: 30px;
+  margin-left: 30px;
+  width: 450px;
+  text-align: start;
+}
+
+.comment-actions {
+  display: flex;
+  margin-left: auto;
+}
+
+.delete-button {
 }
 </style>
