@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <h2>은행 찾기</h2>
-    <input type="text" v-model="searchQuery" placeholder="장소 검색" />
+    <div class="title">은행 찾기</div>
+    <input type="text" v-model="searchQuery" placeholder="ex. 역삼역" />
     <button @click="searchPlaces">검색</button>
     <div id="map"></div>
   </div>
@@ -97,15 +97,17 @@ export default {
 
 <style scoped>
 .container {
-  background-color: #f5f5f5;
+  background-color: #AED581;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-  margin-bottom: 25px;
+.title {
+  font-size: 44px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 input {
@@ -114,7 +116,7 @@ input {
   padding: 10px;
   margin-right: 20px;
   margin-left: 20px;
-  font-size: 16px;
+  font-size: 28px;
   margin-bottom: 50px;
 }
 
@@ -128,7 +130,8 @@ button {
   margin-right: 20px;
   margin-left: 20px;
   margin-bottom: 50px;
-  font-size: 16px;
+  font-size: 28px;
+  background-color: #FFF8E1;
 }
 
 #map {

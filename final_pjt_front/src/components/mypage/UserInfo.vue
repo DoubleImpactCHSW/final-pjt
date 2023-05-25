@@ -2,7 +2,7 @@
     <div class="top-container d-flex justify-content-around">
         <div class="left-section">
             <div class="info-section">
-                <h3 class="go-center mb-4">내 정보</h3>
+                <div class="title-text go-center mb-4">내 정보</div>
                 <div class="oneline d-flex justify-content-between m-3">
                     <span class="key mr-5">회원번호</span>
                     <span>{{ userId }}</span>
@@ -45,7 +45,7 @@
         <div class="right-section">
             <div class="inside-rs d-flex flex-column justify-content-between" v-if="finProducts.length !== 0">
                 <div>
-                    <h3 class="mb-4">가입한 상품 목록</h3>
+                    <div class="title-text mb-4">가입한 상품 목록</div>
                     <div v-for="product in finProducts" :key="product.productName">
                         <p><i>{{ product.bankName }} - {{ product.productName }}</i></p>
                     </div>
@@ -174,7 +174,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* text-align: center; */
     background-color: mintcream;
     padding: 30px 50px;
     width: 532px;
@@ -185,7 +184,7 @@ export default {
 
 .right-section {
     text-align: center;
-    background-color: mintcream;
+    background-color: #FFF8E1;
     padding: 50px;
     width: 532px;
     height: 700px;
@@ -216,12 +215,13 @@ export default {
 }
 
 .edit-btn {
-    margin-bottom: 30px;
+    margin: 20px;
+    font-size: 20px;
 }
 
 .go-recommend {
   text-align: center;
-  font-size: 17px;
+  font-size: 28px;
 }
 
 .link-button {
@@ -236,5 +236,10 @@ export default {
   color: #111;
   text-decoration: underline;
   font-weight: 600;
+}
+
+.title-text {
+    font-size: 32px;
+    font-weight: 600;
 }
 </style>

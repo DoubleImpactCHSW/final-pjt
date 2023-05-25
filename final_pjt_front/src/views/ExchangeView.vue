@@ -21,17 +21,17 @@ export default {
 
 <style scoped>
 .exchange-view {
-  height: 94vh;
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('@/assets/background/ship.gif');
+  /* background-color: #795548; */
+  /* background-image: url('@/assets/background/orbis.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center; */
 }
 
 .content {
   text-align: center;
-  color: #fff; /* Set font color for content */
 }
 </style>

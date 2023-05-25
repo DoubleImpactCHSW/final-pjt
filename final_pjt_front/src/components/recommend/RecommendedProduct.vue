@@ -27,7 +27,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: wheat;
+  background-color: #DEB887;
   padding: 20px;
   margin: 30px auto;
   max-width: 800px;
@@ -37,12 +37,12 @@ export default {
 .lefty {
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 28px;
 }
 
 .boldy {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 32px;
 }
 
 </style>

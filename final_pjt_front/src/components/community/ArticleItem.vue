@@ -1,5 +1,5 @@
 <template>
-  <div class="item p-3 m-3 rounded" style="background-color: #f8f8f8;">
+  <div class="item p-3 m-3 rounded">
     <div class="d-flex justify-content-between align-items-center">
       <p class="mb-0">{{ writer }}</p>
       <b-button v-if="isMine" @click="deleteArticle" variant="danger" size="sm">삭제</b-button>
@@ -56,14 +56,14 @@ export default {
 <style scoped>
 .item {
   width: 700px;
-  border: solid 1px #ddd;
   border-radius: 10px;
   padding: 10px;
   transition: background-color 0.3s;
+  background-color: #FFF8E1;
 }
 
 .item:hover {
-  background-color: #f0f0f0;
+  background-color: #DEB887;
 }
 
 .item p {
@@ -80,6 +80,6 @@ export default {
 }
 
 .item h4.title:hover {
-  color: #42b983;
+  color: #FFF8E1;
 }
 </style>

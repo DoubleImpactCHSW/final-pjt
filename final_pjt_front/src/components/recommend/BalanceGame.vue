@@ -114,7 +114,7 @@ export default {
 }
 
 .question-text {
-  font-size: 32px;
+  font-size: 52px;
   font-weight: bold;
 }
 
@@ -123,7 +123,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 100px;
+  font-size: 180px;
   font-weight: bold;
   letter-spacing: 2px;
   color: gold;
@@ -139,7 +139,7 @@ export default {
 }
 
 .round-text {
-  font-size: 64px;
+  font-size: 120px;
   font-weight: bold;
   animation: fade-in-out 3s;
 }

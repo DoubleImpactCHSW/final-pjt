@@ -2,12 +2,10 @@
   <div>
     <h2>상품 후기</h2>
     <p>token: {{ token }}</p>
-    <hr />
     <b-button
-      class="mb-3"
+      class="mb-3 px-5 write-btn"
       v-if="mode !== 'post'"
       @click="goPost"
-      variant="primary"
       >후기 작성하기</b-button
     >
     <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
@@ -131,9 +129,14 @@ export default {
 .article-list {
   padding: 30px;
   border-radius: 40px;
-  background-color: aliceblue;
+  background-color: #AED581;
   height: 580px;
   margin-bottom: 20px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.write-btn {
+  background-color: #795548;
+  font-size: 36px;
 }
 </style>

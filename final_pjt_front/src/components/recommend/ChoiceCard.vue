@@ -58,7 +58,7 @@ export default {
 }
 
 .centered-text {
-  font-size: 36px;
+  font-size: 48px;
   font-weight: bold;
   text-align: center;
   color: white;

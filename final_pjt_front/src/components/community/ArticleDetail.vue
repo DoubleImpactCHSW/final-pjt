@@ -15,7 +15,7 @@
       <div class="input-group">
         <input type="text" class="form-control" v-model="comment_input" placeholder="댓글을 입력하세요" style="width: 300px;">
         <div class="input-group-append">
-          <button class="btn btn-info" type="button" @click="addComment">등록</button>
+          <button class="upload-btn" type="button" @click="addComment">등록</button>
         </div>
       </div>
     </div>
@@ -140,5 +140,10 @@ export default {
   }
 }
 
-
+.upload-btn {
+  background-color: #CD853F;
+  border: none;
+  border-radius: 5px;
+  padding: 0 25px;
+}
 </style>

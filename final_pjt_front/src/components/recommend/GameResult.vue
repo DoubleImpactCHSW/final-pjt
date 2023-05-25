@@ -34,7 +34,7 @@ export default {
   margin: 0 auto;
   border-radius: 20px;
   padding: 20px 0;
-  font-size: 30px;
+  font-size: 36px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }
 

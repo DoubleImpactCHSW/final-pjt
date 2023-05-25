@@ -406,17 +406,17 @@ export default {
 
 <style scoped>
 .container {
-  background-color: #ffd700;
+  background-color: #AED581;
   border: 1px solid #d6e9e7;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 60px;
+  padding: 60px 80px;
 }
 
 .label {
   font-weight: bold;
   color: rgba(0, 0, 0, 0.7);
-  font-size: 24px;
+  font-size: 32px;
 }
 
 .mt-3 {
@@ -424,7 +424,7 @@ export default {
 }
 
 .input {
-  font-size: 24px;
+  font-size: 28px;
   padding: 12px;
   background-color: #f8f9fa;
   border: 1px solid #ced4da;
@@ -436,5 +436,9 @@ export default {
   outline: none;
   border-color: #80bdff;
   box-shadow: 0 0 8px rgba(128, 189, 255, 0.25);
+}
+
+#country {
+  font-size: 28px;
 }
 </style>
