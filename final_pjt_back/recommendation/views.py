@@ -4,12 +4,15 @@ from django.http import JsonResponse
 import numpy as np
 from accounts.models import User
 from products.models import DepositProducts, SavingProducts
-from django.contrib.auth.decorators import login_required
 from scipy.stats import pearsonr
 from collections import Counter
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from products.serializers import DepositProductsSerializer, SavingProductsSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
+
+
 # Create your views here.
 def get_similar_users(user_data, current_user_data, top_n):
     correlations = []
@@ -23,7 +26,7 @@ def get_similar_users(user_data, current_user_data, top_n):
     
     return similar_users_indices
 
-@login_required
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def recommend(request):
     current_user = request.user
@@ -71,7 +74,7 @@ def recommend(request):
 
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def balance(request):
     # recommend_prd = []
     balance_game_results = request.data

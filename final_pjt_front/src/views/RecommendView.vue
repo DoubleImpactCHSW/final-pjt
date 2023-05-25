@@ -1,20 +1,17 @@
 <template>
   <div>
-    <BasicRecommendation />
     <BalanceGame />
   </div>
 </template>
 
 <script>
 import BalanceGame from '@/components/recommend/BalanceGame';
-import BasicRecommendation from '@/components/recommend/BasicRecommendation';
 
 export default {
   name: 'RecommendView',
 
   components: {
     BalanceGame,
-    BasicRecommendation,
   },
 
   data() {
