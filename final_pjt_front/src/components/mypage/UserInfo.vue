@@ -50,7 +50,7 @@
                 <BarChart :fin-products="finProducts" />
             </div>
             <div v-else>
-                <p>Loading...</p>
+                <strong>Loading...</strong>
             </div>
         </div>
     </div>

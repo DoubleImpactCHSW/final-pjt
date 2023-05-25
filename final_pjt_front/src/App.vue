@@ -36,10 +36,14 @@
           <div class="navbar-logout" v-if="isLogin">
             <ul class="navbar-menu d-flex align-items-center">
               <li>
-                <router-link to="/mypage" class="nav-link">My Page</router-link>
+                <!-- <router-link to="/mypage" class="nav-link">My Page</router-link> -->
+                <router-link to="/mypage" class="nav-link"><b-avatar variant="warning"></b-avatar></router-link>
               </li>
               <li>
-                <b-button @click="logout" variant="danger">Logout</b-button>
+                <!-- <b-button @click="logout" variant="danger">Logout</b-button> -->
+                <b-button @click="logout" variant="outline-warning" class="mb-2">
+                  <b-icon icon="power" aria-hidden="true"></b-icon> Logout
+               </b-button>
               </li>
             </ul>
           </div>
