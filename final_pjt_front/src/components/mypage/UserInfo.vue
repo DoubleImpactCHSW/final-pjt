@@ -36,6 +36,9 @@
                     <span>( 단위: 원 ₩ )</span>
                 </div>
             </div>
+            <div class="go-recommend">
+                <div class="link-button" @click="recommendOn">내 정보 기반 상품 추천 받으러 가기 →</div>
+            </div>
             <b-button class="go-center edit-btn" @click="editProfile" variant="info">수정하기</b-button>
         </div>
 
@@ -50,7 +53,7 @@
                 <BarChart :fin-products="finProducts" />
             </div>
             <div v-else>
-                <strong>Loading...</strong>
+                <strong>가입한 상품이 없습니다.</strong>
             </div>
         </div>
     </div>
@@ -93,30 +96,34 @@ export default {
             this.asset = res.data.money
             this.salary = res.data.salary
             const productsString = res.data.financial_products
-            const listedProducts = productsString.split(',')
-            const registeredProducts = listedProducts.map((cd) => {
-                const searchDeposit = this.$store.state.depositProductsData.find((x) => {
-                    return x.fin_prdt_cd === cd
-                })
-                const searchSavings = this.$store.state.savingsProductsData.find((x) => {
-                    return x.fin_prdt_cd === cd
-                })
+            if (productsString) {
+                const listedProducts = productsString.includes(',') ? productsString.split(',') : [productsString]
+                const registeredProducts = listedProducts.map((cd) => {
+                    const searchDeposit = this.$store.state.depositProductsData.find((x) => {
+                        return x.fin_prdt_cd === cd
+                    })
+                    const searchSavings = this.$store.state.savingsProductsData.find((x) => {
+                        return x.fin_prdt_cd === cd
+                    })
 
-                const info = searchDeposit ? {
-                    bankName: searchDeposit.kor_co_nm,
-                    productName: searchDeposit.fin_prdt_nm,
-                    rate: searchDeposit.depositoptions_set[0].intr_rate,
-                    primeRate: searchDeposit.depositoptions_set[0].intr_rate2,
-                    } : {
-                    bankName: searchSavings.kor_co_nm,
-                    productName: searchSavings.fin_prdt_nm,
-                    rate: searchSavings.savingoptions_set[0].intr_rate,
-                    primeRate: searchSavings.savingoptions_set[0].intr_rate2,
-                    }
+                    const info = searchDeposit ? {
+                        bankName: searchDeposit.kor_co_nm,
+                        productName: searchDeposit.fin_prdt_nm,
+                        rate: searchDeposit.depositoptions_set[0].intr_rate,
+                        primeRate: searchDeposit.depositoptions_set[0].intr_rate2,
+                        } : {
+                            bankName: searchSavings.kor_co_nm,
+                        productName: searchSavings.fin_prdt_nm,
+                        rate: searchSavings.savingoptions_set[0].intr_rate,
+                        primeRate: searchSavings.savingoptions_set[0].intr_rate2,
+                        }
 
-                return info
-            })
-            this.finProducts = registeredProducts
+                    return info
+                })
+                this.finProducts = registeredProducts
+            } else {
+                return
+            }
         })
         .catch((err) => {
             console.log(err)
@@ -135,20 +142,23 @@ export default {
             formData.append('salary', this.salary);
             formData.append('financial_products', this.finProducts);
 
-      axios
-        .put(`${API_URL}/accounts/profile/update/${this.$store.state.username}/`, formData, {
-          headers: {
-            // Authorization: `Token ${this.$store.state.token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          alert('프로필 정보가 수정되었습니다.')
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+            axios
+                .put(`${API_URL}/accounts/profile/update/${this.$store.state.username}/`, formData, {
+                headers: {
+                    // Authorization: `Token ${this.$store.state.token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+                })
+                .then((res) => {
+                console.log(res);
+                alert('프로필 정보가 수정되었습니다.')
+                })
+                .catch((err) => {
+                console.log(err);
+                });
+        },
+        recommendOn() {
+            this.$emit('go-recommend');
         }
     },
 };
@@ -207,5 +217,24 @@ export default {
 
 .edit-btn {
     margin-bottom: 30px;
+}
+
+.go-recommend {
+  text-align: center;
+  font-size: 17px;
+}
+
+.link-button {
+  display: inline-block;
+  font-style: italic;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.link-button:hover {
+  color: #111;
+  text-decoration: underline;
+  font-weight: 600;
 }
 </style>

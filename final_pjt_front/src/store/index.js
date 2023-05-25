@@ -25,6 +25,7 @@ export default new Vuex.Store({
     commentsList: [],
     depositProductsData: [],
     savingsProductsData: [],
+    gameResult: null,
   },
 
   getters: {
@@ -64,6 +65,9 @@ export default new Vuex.Store({
     GET_SAVINGS_PRODUCTS(state, savingsData) {
       state.savingsProductsData = savingsData;
     },
+    SET_GAME_RESULT(state, prds) {
+      state.gameResult = prds;
+    }
   },
 
   actions: {
@@ -119,7 +123,7 @@ export default new Vuex.Store({
             );
             console.log('예금 상품 목록 저장 완료', res1);
           } catch (err) {
-            console.log('예금 상품 목록 저장 실패:', err);
+            console.log('예금 상품 목록 이미 존재', err);
           }
 
           try {
@@ -137,7 +141,7 @@ export default new Vuex.Store({
             );
             console.log('적금 상품 목록 저장 완료', res3);
           } catch (err) {
-            console.log('적금 상품 목록 저장 실패:', err);
+            console.log('적금 상품 목록 이미 존재', err);
           }
 
           try {
@@ -240,9 +244,8 @@ export default new Vuex.Store({
       formData.append('money', result[0].toString());
       formData.append('join_preference', result[1].toString());
       formData.append('membership_duration', result[2].toString());
-
       axios
-        .get(`${API_URL}/recommendation/balance/`, formData, {
+        .post(`${API_URL}/recommendation/balance/`, formData, {
           headers: {
             Authorization: `Token ${context.state.token}`,
             'Content-Type': 'multipart/form-data',
@@ -250,7 +253,7 @@ export default new Vuex.Store({
         })
         .then((res) => {
           console.log(res);
-          return res.data.top_5_prd;
+          context.commit('SET_GAME_RESULT', res.data.top_5_prd);
         })
         .catch((err) => {
           console.log(err);
