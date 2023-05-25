@@ -244,7 +244,6 @@ export default new Vuex.Store({
       formData.append('money', result[0].toString());
       formData.append('join_preference', result[1].toString());
       formData.append('membership_duration', result[2].toString());
-      console.log(formData)
       axios
         .post(`${API_URL}/recommendation/balance/`, formData, {
           headers: {

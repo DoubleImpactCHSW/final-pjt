@@ -8,7 +8,7 @@
       v-if="mode !== 'post'"
       @click="goPost"
       variant="primary"
-      >후기 작성하러 가기</b-button
+      >후기 작성하기</b-button
     >
     <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
       <div v-if="noArticles">
