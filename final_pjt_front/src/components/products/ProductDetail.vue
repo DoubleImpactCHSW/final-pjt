@@ -1,7 +1,7 @@
 <template>
     <div class="top-container">
       <div>
-        <h3>상품 상세 정보</h3>
+        <div class="title-text">상품 상세 정보</div>
         <div class="ele m-4 d-flex justify-content-between">
           <div class="font-weight-bold">공식 제출 월</div>
           <div class="content">{{ detailData?.dcls_month }}</div>
@@ -24,11 +24,11 @@
         </div>
         <div class="ele m-4 d-flex justify-content-between">
           <div class="font-weight-bold">부가 정보</div>
-          <div class="content">{{ detailData?.etc_note }}</div>
+          <div class="content">{{ cutEtc }}</div>
         </div>
       </div>
       <div class="mt-auto">
-        <b-button @click="registerProduct" variant="primary">가입하기</b-button>
+        <b-button @click="registerProduct" class="btn">가입하기</b-button>
       </div>
     </div>
 </template>
@@ -45,7 +45,18 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
+
+  computed: {
+    cutEtc() {
+      const origin = this.detailData?.etc_note
+      if (origin.length > 50) {
+        return origin.slice(0, 90) + '...'
+      } else {
+        return origin
+      }
+    }
+  },
+
   methods: {
     registerProduct() {
       axios
@@ -75,7 +86,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: mintcream;
+  background-color: #D5EDA5;
   padding: 30px 50px;
   width: 532px;
   height: 650px;
@@ -91,4 +102,16 @@ export default {
   width: 400px;
 }
 
+.btn {
+  background-color: #FFF8E1;
+  border: none;
+  color: #000;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.title-text {
+  font-size: 36px;
+  font-weight: 600;
+}
 </style>

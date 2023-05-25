@@ -28,7 +28,7 @@ export default {
 
 <style scoped>
 .cont {
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 
@@ -46,7 +46,7 @@ export default {
 }
 
 .title-text {
-  font-size: 32px;
+  font-size: 48px;
   font-weight: bold;
   color: #FFD700;
   display: inline-block;
@@ -60,16 +60,18 @@ export default {
 }
 
 .product-item {
-  background-color: #f2f2f2;
+  background-color: #836c4b;
   padding: 10px;
   border-radius: 5px;
 }
 
 .bank-name {
+  color: #fff;
   font-weight: bold;
 }
 
 .product-name {
+  color: #fff;
   margin-top: 5px;
 }
 
@@ -78,6 +80,6 @@ export default {
   font-style: italic;
   color: #888;
   margin-top: 80px;
-  font-size: 24px;
+  font-size: 42px;
 }
 </style>

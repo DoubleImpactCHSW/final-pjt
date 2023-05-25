@@ -1,9 +1,7 @@
 <template>
   <div class="exchange-view">
     <div class="content">
-      <hr />
       <RateCalculator />
-      <hr />
     </div>
   </div>
 </template>
@@ -21,17 +19,14 @@ export default {
 
 <style scoped>
 .exchange-view {
-  height: 94vh;
+  height: 93vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('@/assets/background/ship.gif');
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(to bottom, #fff, #FFFACD);
 }
 
 .content {
   text-align: center;
-  color: #fff; /* Set font color for content */
 }
 </style>

@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <b-button @click="goEdit" v-if="inMine" variant="success">수정</b-button>
+    <b-button @click="goEdit" v-if="inMine" class="edit-btn">수정</b-button>
   </div>
 </template>
 
@@ -59,13 +59,14 @@ export default {
 
 <style scoped>
 .detail-container {
-  max-width: 600px; /* 원하는 최대 너비로 설정 */
-  margin: 0 auto; /* 가운데 정렬을 위해 margin 설정 */
-  background-color: #f8f8f8;
+  max-width: 700px; 
+  margin: 0 auto; 
+  background-color: #AED581;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 20px;
+
 }
 
 .detail-section {
@@ -74,18 +75,18 @@ export default {
 }
 
 .detail-label {
-  font-size: 16px;
+  font-size: 28px;
   font-weight: bold;
   width: 80px;
   color: #666;
 }
 
 .detail-value {
-  font-size: 16px;
+  font-size: 28px;
 }
 
 .detail-title-value {
-  font-size: 16px;
+  font-size: 32px;
   font-weight: 600;
 }
 
@@ -117,5 +118,12 @@ export default {
 
 .b-button {
   margin-top: 10px;
+}
+
+.edit-btn {
+  background-color: #DEB887;
+  border: none;
+  font-size: 24px;
+  padding: 0 20px;
 }
 </style>
