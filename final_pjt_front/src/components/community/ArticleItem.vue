@@ -2,7 +2,9 @@
   <div class="item p-2 m-3 rounded">
     <div class="d-flex justify-content-between align-items-center">
       <p class="mb-0">{{ writer }}</p>
-      <b-button v-if="isMine" @click="deleteArticle" variant="danger" size="sm">삭제</b-button>
+      <b-button v-if="isMine" @click="deleteArticle" variant="danger" size="sm"
+        >삭제</b-button
+      >
     </div>
     <h4 class="mt-2 title" @click="goDetail">{{ title }}</h4>
   </div>
@@ -28,8 +30,8 @@ export default {
 
   computed: {
     isMine() {
-      return this.writer == this.$store.state.username
-    }
+      return this.writer == this.$store.state.username;
+    },
   },
 
   methods: {
@@ -44,7 +46,7 @@ export default {
           console.log(res);
           this.$store.dispatch('getArticles');
         })
-        .catch((err) => [console.log(err)]);
+        .catch((err) => console.log(err));
     },
     goDetail() {
       this.$store.dispatch('getArticleDetail', this.articleId);
@@ -58,11 +60,11 @@ export default {
   width: 700px;
   border-radius: 10px;
   transition: background-color 0.3s;
-  background-color: #FFF8E1;
+  background-color: #fff8e1;
 }
 
 .item:hover {
-  background-color: #DEB887;
+  background-color: #deb887;
 }
 
 .item p {
@@ -78,6 +80,6 @@ export default {
 }
 
 .item h4.title:hover {
-  color: #FFF8E1;
+  color: #fff8e1;
 }
 </style>

@@ -1,15 +1,12 @@
 <template>
   <div class="view-container">
     <h2>상품 후기를 작성해주세요!</h2>
-    <div style="color: #fff;">token: {{ token }}</div>
-    <b-button
-      class="mb-3 px-5 write-btn"
-      v-if="mode !== 'post'"
-      @click="goPost"
+    <div style="color: #fff">token: {{ token }}</div>
+    <b-button class="mb-3 px-5 write-btn" v-if="mode !== 'post'" @click="goPost"
       >후기 작성하기</b-button
     >
     <div v-if="mode === 'all'" class="d-flex flex-column align-items-center">
-      <div v-if="noArticles">
+      <div v-if="noArticles" class="article-list">
         <h3>아직 후기가 없어요.</h3>
       </div>
       <div v-else>
@@ -117,7 +114,7 @@ export default {
 <style scoped>
 .view-container {
   height: 93vh;
-  background: linear-gradient(to bottom, #fff, #FFFACD);
+  background: linear-gradient(to bottom, #fff, #fffacd);
   padding-top: 20px;
 }
 .pagination-controls {
@@ -134,8 +131,9 @@ export default {
 .article-list {
   padding: 30px;
   border-radius: 40px;
-  background-color: #AED581;
+  background-color: #aed581;
   height: 567px;
+  width: 792px;
   margin-bottom: 20px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }

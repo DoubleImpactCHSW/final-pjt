@@ -67,7 +67,7 @@ export default new Vuex.Store({
     },
     SET_GAME_RESULT(state, prds) {
       state.gameResult = prds;
-    }
+    },
   },
 
   actions: {
@@ -201,11 +201,13 @@ export default new Vuex.Store({
           },
         })
         .then((res) => {
+          console.log('getArticles success');
           context.commit('GET_ARTICLES', res.data);
         })
         .catch((err) => {
           if (err.response && err.response.status === 404) {
-            // 404 에러인 경우 아무 일도 하지 않고 종료
+            // 404 에러인 경우 글이 없는 것이므로 빈 배열 대입
+            context.commit('GET_ARTICLES', []);
             return;
           }
           console.log(err);

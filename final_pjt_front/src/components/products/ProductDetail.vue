@@ -1,42 +1,42 @@
 <template>
-    <div class="top-container">
-      <div>
-        <div class="title-text">상품 상세 정보</div>
-        <div class="ele m-4 d-flex justify-content-between">
-          <div class="font-weight-bold">공식 제출 월</div>
-          <div class="content">{{ detailData?.dcls_month }}</div>
-        </div>
-        <div class="ele m-4 d-flex justify-content-between">
-          <div class="font-weight-bold">금융회사명</div>
-          <div class="content">{{ detailData?.kor_co_nm }}</div>
-        </div>
-        <div class="ele m-4 d-flex justify-content-between">
-          <div class="font-weight-bold">상품명</div>
-          <div class="content">{{ detailData?.fin_prdt_nm }}</div>
-        </div>
-        <div class="ele m-4 d-flex justify-content-between">
-          <div class="font-weight-bold">가입제한</div>
-          <div class="content">{{ detailData?.join_deny }}</div>
-        </div>
-        <div class="ele m-4 d-flex justify-content-between">
-          <div class="font-weight-bold">가입 방법</div>
-          <div class="content">{{ detailData?.join_way }}</div>
-        </div>
-        <div class="ele m-4 d-flex justify-content-between">
-          <div class="font-weight-bold">부가 정보</div>
-          <div class="content">{{ cutEtc }}</div>
-        </div>
+  <div class="top-container">
+    <div>
+      <div class="title-text">상품 상세 정보</div>
+      <div class="ele m-4 d-flex justify-content-between">
+        <div class="font-weight-bold">공식 제출 월</div>
+        <div class="content">{{ detailData?.dcls_month }}</div>
       </div>
-      <div class="mt-auto">
-        <b-button @click="registerProduct" class="btn">가입하기</b-button>
+      <div class="ele m-4 d-flex justify-content-between">
+        <div class="font-weight-bold">금융회사명</div>
+        <div class="content">{{ detailData?.kor_co_nm }}</div>
+      </div>
+      <div class="ele m-4 d-flex justify-content-between">
+        <div class="font-weight-bold">상품명</div>
+        <div class="content">{{ detailData?.fin_prdt_nm }}</div>
+      </div>
+      <div class="ele m-4 d-flex justify-content-between">
+        <div class="font-weight-bold">가입제한</div>
+        <div class="content">{{ detailData?.join_deny }}</div>
+      </div>
+      <div class="ele m-4 d-flex justify-content-between">
+        <div class="font-weight-bold">가입 방법</div>
+        <div class="content">{{ detailData?.join_way }}</div>
+      </div>
+      <div class="ele m-4 d-flex justify-content-between">
+        <div class="font-weight-bold">부가 정보</div>
+        <div class="content">{{ cutEtc }}</div>
       </div>
     </div>
+    <div class="mt-auto">
+      <b-button @click="registerProduct" class="btn">가입하기</b-button>
+    </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000'
+const API_URL = 'http://127.0.0.1:8000';
 export default {
   name: 'ProductDetail',
   props: {
@@ -48,13 +48,14 @@ export default {
 
   computed: {
     cutEtc() {
-      const origin = this.detailData?.etc_note
+      const origin = this.detailData?.etc_note;
+      if (!origin) return null;
       if (origin.length > 50) {
-        return origin.slice(0, 90) + '...'
+        return origin.slice(0, 90) + '...';
       } else {
-        return origin
+        return origin;
       }
-    }
+    },
   },
 
   methods: {
@@ -71,6 +72,7 @@ export default {
         )
         .then((res) => {
           console.log(res);
+          alert('가입 신청을 완료했습니다.');
         })
         .catch((err) => {
           console.log(err);
@@ -80,13 +82,12 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .top-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #D5EDA5;
+  background-color: #d5eda5;
   padding: 30px 50px;
   width: 532px;
   height: 650px;
@@ -103,7 +104,7 @@ export default {
 }
 
 .btn {
-  background-color: #FFF8E1;
+  background-color: #fff8e1;
   border: none;
   color: #000;
   font-size: 28px;
