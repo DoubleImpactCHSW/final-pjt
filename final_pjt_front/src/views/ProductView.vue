@@ -11,8 +11,8 @@
             </select>
           </div>
           <div class="my-3">
-            <b-button @click="depositOn" variant="warning" class="btn-custom">정기예금</b-button>
-            <b-button @click="savingsOn" variant="warning" class="btn-custom">정기적금</b-button>
+            <b-button @click="depositOn" variant="warning" class="btn-custom-deposit">정기예금</b-button>
+            <b-button @click="savingsOn" variant="warning" class="btn-custom-savings">정기적금</b-button>
           </div>  
         </div>
         <div class="my-3">
@@ -141,8 +141,16 @@ export default {
 }
 
 
-.btn-custom {
-  margin: 0 10px;
+.btn-custom-deposit {
+  margin-left: 20px;
+  font-size: 28px;
+  background-color: #8D6E63;
+  color: #fff;
+  border: none;
+}
+
+.btn-custom-savings {
+  margin: 0 20px;
   font-size: 28px;
   background-color: #8D6E63;
   color: #fff;

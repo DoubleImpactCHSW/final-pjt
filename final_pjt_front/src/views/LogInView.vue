@@ -82,10 +82,10 @@ export default {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f6f6f6;
+  background-color: #D5EDA5;
   border: 2px solid #ccc;
   border-radius: 8px;
-  animation: backgroundAnimation 10s infinite alternate ease-in-out;
+  animation: backgroundAnimation 3s infinite alternate ease-in-out;
 }
 
 .login-title {
@@ -141,10 +141,10 @@ export default {
     background-color: #f6f6f6;
   }
   50% {
-    background-color: #ebebeb;
+    background-color: #D5EDA5;
   }
   100% {
-    background-color: #f6f6f6;
+    background-color: #AED581;
   }
 }
 </style>

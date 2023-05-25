@@ -130,7 +130,7 @@ export default {
   padding: 30px;
   border-radius: 40px;
   background-color: #AED581;
-  height: 580px;
+  height: 567px;
   margin-bottom: 20px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }

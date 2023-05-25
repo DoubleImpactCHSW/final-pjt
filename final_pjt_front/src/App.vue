@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
         <div class="d-flex align-items-center">
           <div class="navbar-logo">
-            <router-link to="/">Logo</router-link>
+            <router-link class="logo-text" to="/">EZ</router-link>
           </div>
           <ul class="navbar-menu d-flex align-items-center" v-if="isLogin">
             <li>
@@ -82,16 +82,28 @@ export default {
 }
 
 .navbar {
-  background-color: #f8f8f8;
-  padding: 10px;
+  background-color: #fff;
+  padding: 0 20px;
   border-bottom: 1px solid #ddd;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-
 .navbar-logo {
-  color: #333;
-  font-size: 20px;
+  margin: 0 20px;
+}
+
+.logo-text {
+  color: red;
+  font-size: 48px;
   font-weight: bold;
+}
+
+.logo-text:hover {
+  color: red;
+}
+
+.nav-link {
+  font-size: 32px;
 }
 
 .navbar-menu {
@@ -111,7 +123,7 @@ export default {
 }
 
 .navbar-menu li a:hover {
-  color: #42b983;
+  color: #AED581;
 }
 
 .navbar-logout {

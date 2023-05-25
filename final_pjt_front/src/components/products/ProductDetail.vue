@@ -1,7 +1,7 @@
 <template>
     <div class="top-container">
       <div>
-        <h3>상품 상세 정보</h3>
+        <div class="title-text">상품 상세 정보</div>
         <div class="ele m-4 d-flex justify-content-between">
           <div class="font-weight-bold">공식 제출 월</div>
           <div class="content">{{ detailData?.dcls_month }}</div>
@@ -86,7 +86,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #AED581;
+  background-color: #D5EDA5;
   padding: 30px 50px;
   width: 532px;
   height: 650px;
@@ -107,6 +107,11 @@ export default {
   border: none;
   color: #000;
   font-size: 28px;
+  font-weight: 600;
+}
+
+.title-text {
+  font-size: 36px;
   font-weight: 600;
 }
 </style>
