@@ -19,8 +19,8 @@
         <div class="round-text">{{ roundText }}</div>
       </div>
     </div>
-    <div v-else>
-      <GameResult :final-game-result="finalGameResult" />
+    <div v-else style="margin-top: 70px;">
+      <GameResult />
     </div>
   </div>
 </template>
@@ -55,6 +55,9 @@ export default {
       return this.round;
     },
     roundText() {
+      if (this.round === 3) {
+        return '당신을 위한 상품은...!'
+      }
       return 'Round ' + (this.round + 1);
     },
     isGameOn() {
@@ -72,28 +75,26 @@ export default {
   },
 
   methods: {
-    async selectLeft() {
+    selectLeft() {
       this.round = this.round + 1;
-      if (this.round === 3) {
-        this.gameOn = false;
-        const result = await this.$store.dispatch('getGameResult', this.choice);
-        this.gameResult = result;
-      }
       this.showRoundText = true;
       setTimeout(() => {
+        if (this.round === 3) {
+          this.gameOn = false;
+          this.$store.dispatch('getGameResult', this.choice);
+        }
         this.showRoundText = false;
       }, 3000);
     },
-    async selectRight() {
+    selectRight() {
       this.choice[this.round] = 0;
       this.round = this.round + 1;
-      if (this.round === 3) {
-        this.gameOn = false;
-        const result = await this.$store.dispatch('getGameResult', this.choice);
-        this.gameResult = result;
-      }
       this.showRoundText = true;
       setTimeout(() => {
+        if (this.round === 3) {
+          this.$store.dispatch('getGameResult', this.choice);
+          this.gameOn = false;
+        }
         this.showRoundText = false;
       }, 3000);
     },

@@ -71,7 +71,7 @@ def recommend(request):
 
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def balance(request):
     # recommend_prd = []
     balance_game_results = request.data
