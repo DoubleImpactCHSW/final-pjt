@@ -53,7 +53,7 @@
                 <BarChart :fin-products="finProducts" />
             </div>
             <div v-else>
-                <p>가입한 상품이 없습니다.</p>
+                <strong>가입한 상품이 없습니다.</strong>
             </div>
         </div>
     </div>
