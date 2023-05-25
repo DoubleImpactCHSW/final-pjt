@@ -11,7 +11,6 @@
             <th>12개월</th>
             <th>24개월</th>
             <th>36개월</th>
-            <!-- ... -->
           </tr>
         </thead>
         <tbody>
@@ -19,7 +18,7 @@
             <td>{{ product?.dcls_month }}</td>
             <td>{{ product?.kor_co_nm }}</td>
             <td>
-              <b-button @click="viewDetail(product.fin_prdt_cd)" variant='info'>{{ product?.fin_prdt_nm }}</b-button>
+              <b-button @click="viewDetail(product.fin_prdt_cd)" class="btn">{{ product?.fin_prdt_nm }}</b-button>
             </td>
 						<td>{{ isDeposit ? product?.depositoptions_set[0]?.intr_rate : product?.savingoptions_set[0]?.intr_rate }}</td>
 						<td>{{ isDeposit ? product?.depositoptions_set[1]?.intr_rate : product?.savingoptions_set[1]?.intr_rate }}</td>
@@ -94,5 +93,11 @@ th {
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+.btn {
+  background-color: #8D6E63;
+  border: none;
+  font-size: 24px;
 }
 </style>

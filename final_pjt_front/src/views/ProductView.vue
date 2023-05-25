@@ -4,15 +4,15 @@
       <div class="left-section d-flex flex-column justify-content-center align-items-center">
         <div class="header">
           <div class="header-box my-3">
-            <h5>은행을 선택하세요.</h5>
+            <span class="bank-choice">은행을 선택하세요.</span>
             <select v-model="bank" name="bank">
               <option value="전체">전체</option>
               <option v-for="bankname in depositBankList" :key="bankname" :value="bankname">{{ bankname }}</option>
             </select>
           </div>
           <div class="my-3">
-            <b-button @click="depositOn" variant="primary" class="btn-custom">정기예금</b-button>
-            <b-button @click="savingsOn" variant="primary" class="btn-custom">정기적금</b-button>
+            <b-button @click="depositOn" variant="warning" class="btn-custom">정기예금</b-button>
+            <b-button @click="savingsOn" variant="warning" class="btn-custom">정기적금</b-button>
           </div>  
         </div>
         <div class="my-3">
@@ -111,8 +111,9 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100px;
-  background-color: #f8f8f8;
+  background-color: #AED581;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
 .header-box {
@@ -123,7 +124,7 @@ export default {
   margin-left: 10px;
   padding: 10px;
   border-radius: 5px;
-  background-color: white;
+  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   animation: header-animation 0.3s;
 }
@@ -142,7 +143,8 @@ export default {
 
 .btn-custom {
   margin: 0 10px;
-  background-color: #007bff;
+  font-size: 28px;
+  background-color: #8D6E63;
   color: #fff;
   border: none;
 }
@@ -154,5 +156,10 @@ export default {
 .btn-custom:focus {
   box-shadow: none;
   outline: none;
+}
+
+.bank-choice {
+  font-size: 28px;
+  font-weight: 600;
 }
 </style>
