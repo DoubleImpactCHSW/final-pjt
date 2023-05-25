@@ -1,9 +1,7 @@
 <template>
   <div class="exchange-view">
     <div class="content">
-      <hr />
       <RateCalculator />
-      <hr />
     </div>
   </div>
 </template>
@@ -21,14 +19,11 @@ export default {
 
 <style scoped>
 .exchange-view {
-  height: 90vh;
+  height: 93vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #795548; */
-  /* background-image: url('@/assets/background/orbis.jpg');
-  background-size: cover;
-  background-position: center; */
+  background: linear-gradient(to bottom, #fff, #FFFACD);
 }
 
 .content {

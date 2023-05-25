@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h2>상품 후기</h2>
-    <p>token: {{ token }}</p>
+  <div class="view-container">
+    <h2>상품 후기를 작성해주세요!</h2>
+    <div style="color: #fff;">token: {{ token }}</div>
     <b-button
       class="mb-3 px-5 write-btn"
       v-if="mode !== 'post'"
@@ -115,6 +115,11 @@ export default {
 </script>
 
 <style scoped>
+.view-container {
+  height: 93vh;
+  background: linear-gradient(to bottom, #fff, #FFFACD);
+  padding-top: 20px;
+}
 .pagination-controls {
   display: flex;
   justify-content: center;

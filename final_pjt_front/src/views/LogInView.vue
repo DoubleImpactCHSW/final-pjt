@@ -85,7 +85,7 @@ export default {
   background-color: #D5EDA5;
   border: 2px solid #ccc;
   border-radius: 8px;
-  animation: backgroundAnimation 3s infinite alternate ease-in-out;
+  animation: backgroundAnimation 5s infinite alternate ease-in-out;
 }
 
 .login-title {

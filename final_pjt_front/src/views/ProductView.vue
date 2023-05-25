@@ -4,7 +4,8 @@
       <div class="left-section d-flex flex-column justify-content-center align-items-center">
         <div class="header">
           <div class="header-box my-3">
-            <span class="bank-choice">은행을 선택하세요.</span>
+            <span></span>
+            <span class="bank-choice">상품 발행사를 선택하세요.</span>
             <select v-model="bank" name="bank">
               <option value="전체">전체</option>
               <option v-for="bankname in depositBankList" :key="bankname" :value="bankname">{{ bankname }}</option>
@@ -96,6 +97,8 @@ export default {
 <style scoped>
 .top-box {
   padding-top: 80px;
+  height: 93vh;
+  background: linear-gradient(to bottom, #fff, #FFFACD);
 }
 
 .left-section {

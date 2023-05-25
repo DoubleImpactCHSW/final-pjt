@@ -29,7 +29,7 @@ export default {
 
 .title {
   background-color: forestgreen;
-  color: beige;
+  color: #fff;
   max-width: 500px;
   margin: 0 auto;
   border-radius: 20px;

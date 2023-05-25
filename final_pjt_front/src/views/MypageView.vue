@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column align-items-center">
+  <div class="view-container d-flex flex-column align-items-center">
     <BasicRecommendation :rec-list="recPrdsList" v-if="isOnRecommend"/>
     <UserInfo @go-recommend="handleRecommend" v-else/>
   </div>
@@ -83,5 +83,8 @@ export default {
 </script>
 
 <style scoped>
-
+.view-container {
+  height: 93vh;
+  background: linear-gradient(to bottom, #fff, #FFFACD);
+}
 </style>

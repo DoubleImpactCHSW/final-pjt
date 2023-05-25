@@ -4,7 +4,9 @@
       <div class="d-flex justify-content-between align-items-center" style="width: 100%;">
         <div class="d-flex align-items-center">
           <div class="navbar-logo">
-            <router-link class="logo-text" to="/">EZ</router-link>
+            <router-link class="logo-text" to="/">
+            <img src="@/assets/logo/ezlogo.jpg" width="80" height="50">
+            </router-link>
           </div>
           <ul class="navbar-menu d-flex align-items-center" v-if="isLogin">
             <li>
@@ -92,15 +94,15 @@ export default {
   margin: 0 20px;
 }
 
-.logo-text {
+/* .logo-text {
   color: red;
   font-size: 48px;
   font-weight: bold;
-}
+} */
 
-.logo-text:hover {
+/* .logo-text:hover {
   color: red;
-}
+} */
 
 .nav-link {
   font-size: 32px;
@@ -129,4 +131,5 @@ export default {
 .navbar-logout {
   margin-left: 10px;
 }
+
 </style>

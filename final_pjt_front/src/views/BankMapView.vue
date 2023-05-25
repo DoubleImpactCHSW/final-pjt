@@ -26,5 +26,7 @@ export default {
 <style scoped>
 .bankmap-view {
   padding-top: 50px;
+  height: 93vh;
+  background: linear-gradient(to bottom, #fff, #FFFACD);
 }
 </style>

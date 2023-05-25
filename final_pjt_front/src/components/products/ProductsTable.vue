@@ -91,6 +91,10 @@ th {
   background-color: #f2f2f2;
 }
 
+tr:nth-child(odd) {
+  background-color: #fff;
+}
+
 tr:nth-child(even) {
   background-color: #f9f9f9;
 }
